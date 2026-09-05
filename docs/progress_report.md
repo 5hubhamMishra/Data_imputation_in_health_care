@@ -74,6 +74,20 @@ RQ1-RQ4 as stated in README.md.
   default seed and reproducing the original numbers exactly). Covers E0 and
   E1-mean@MCAR20 as the established pattern; full multi-seed coverage of
   every mechanism x level x imputer cell is later work.
+- **IMPLEMENTED, EXECUTED, VALIDATED**: GA feature selection
+  (`src/genetic_selection.py`, master prompt sections 25-27) — binary
+  chromosome, population=30, generations=30, crossover_probability=0.8,
+  tournament_size=3, elite_count=2, mutation_probability=1/12≈0.083 (all
+  exactly the specified defaults); fitness = mean 5-fold stratified CV F1
+  minus a 0.02x feature-ratio penalty, computed on the training split only
+  (structurally guaranteed — `run_ga`/`_fitness` take no test-set
+  argument, verified by a dedicated leakage test). Fitness evaluation uses
+  50 trees instead of the final RF's 200 (documented deviation in
+  `src/config.py`: CV-F1 ranking is stable well before 200 trees, and this
+  is evaluated up to 900 times per GA run) — the final all-features-vs-GA
+  comparison still uses the full 200-tree config for both sides. Ran on
+  complete (unimputed) data across all 5 established seeds
+  (`experiments/run_ga.py`). 5 new tests, full suite 23/23 passing.
 
 ## Current Dataset and Characteristics
 
@@ -185,8 +199,39 @@ yet complete for every cell) is necessary before any RQ conclusion.
 
 ## GA Status
 
-Not started. Scheduled for a later cycle (master prompt phase 14+),
-after the missingness/imputation framework exists.
+**Implemented, executed, and validated on complete data (E5).** 5 GA runs
+(seeds 42/123/2026/7/99), each converging to a 4-7 feature subset (out of
+12). Selection frequency across the 5 runs
+(`results/tables/ga_feature_frequency.csv`):
+
+| feature | frequency |
+|---|---|
+| time | 1.0 |
+| ejection_fraction | 1.0 |
+| serum_creatinine | 0.8 |
+| diabetes | 0.6 |
+| serum_sodium, platelets, anaemia | 0.4 |
+| creatinine_phosphokinase, sex, high_blood_pressure, smoking | 0.2 |
+| age | 0.0 |
+
+`time` and `ejection_fraction` (both established strong predictors in the
+heart-failure literature) are selected in every run — the stable core.
+`age` is never selected across 5 independent runs — a genuine negative
+finding, not an omission.
+
+**All-features vs GA-selected** (majority-vote subset ≥50% frequency:
+time, ejection_fraction, serum_creatinine, diabetes — 4 of 12 features,
+66.7% reduction; seed 42, held-out test, complete data):
+
+| variant | n_features | Accuracy | F1 | ROC-AUC |
+|---|---|---|---|---|
+| all_features | 12 | 0.817 | 0.667 | 0.883 |
+| ga_selected | 4 | 0.833 | 0.706 | 0.815 |
+
+Mixed result, reported honestly (master prompt section 49): GA improved
+Accuracy/F1 with a two-thirds smaller feature set, but ROC-AUC dropped.
+Single seed-42 split — not yet a statistically supported claim that GA
+"wins"; needs the multi-seed comparison next.
 
 ## Important Tables/Figures
 
@@ -204,6 +249,10 @@ after the missingness/imputation framework exists.
 - `results/metrics/e1_e2_e3_rf_prediction.csv`
 - `results/metrics/repeated_seeds_e0.csv`
 - `results/metrics/repeated_seeds_e1_mcar20.csv`
+- `results/figures/ga_convergence.png`
+- `results/figures/ga_feature_frequency.png`
+- `results/tables/ga_feature_frequency.csv`
+- `results/metrics/all_features_vs_ga_complete.csv`
 
 ## Problems/Limitations
 
@@ -228,16 +277,21 @@ after the missingness/imputation framework exists.
 - KNN's k=5 is sklearn's default, not CV-tuned; IterativeImputer uses
   scikit-learn defaults beyond the seed. Neither is unreasonable, but
   neither is optimized — a fixed, honestly-reported starting point.
+- GA's all-features-vs-GA comparison is single-seed (seed 42) and mixed
+  (F1/Accuracy up, ROC-AUC down) — not yet a statistically supported "GA
+  helps" or "GA hurts" claim. GA fitness evaluation also uses 50 trees
+  instead of 200 for compute-budget reasons (documented in
+  `src/config.py`); this affects only the search process, not the final
+  reported comparison metrics, which use the full 200-tree config.
 
 ## Work in Progress
 
-None mid-flight; this cycle's scope (confound fix + repeated-seeds pattern)
-is complete and committed. Full multi-seed coverage of every mechanism x
-level x imputer cell remains open for a near-term cycle.
+None mid-flight; this cycle's scope (GA implementation, complete-data GA
+baseline, all-features-vs-GA comparison) is complete and committed.
 
 ## Next Steps
 
-GA feature selection implementation (master prompt sections 25-27), then
-the full Imputation + GA + RF experiment group (E6). Full multi-seed
-coverage and paired statistical tests (sections 29, 33) before any RQ1/RQ2
-conclusion is finalized in the report draft.
+Imputation + GA + Random Forest (E6): apply the now-validated GA to the
+MCAR/MAR/MNAR-imputed datasets, not just complete data. Full multi-seed
+coverage and paired statistical tests (sections 29, 33) before any
+RQ1/RQ2/RQ3 conclusion is finalized in the report draft.

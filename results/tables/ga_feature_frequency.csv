@@ -1,0 +1,13 @@
+feature,selection_count,selection_frequency
+time,5,1.0
+ejection_fraction,5,1.0
+serum_creatinine,4,0.8
+diabetes,3,0.6
+serum_sodium,2,0.4
+platelets,2,0.4
+anaemia,2,0.4
+creatinine_phosphokinase,1,0.2
+sex,1,0.2
+high_blood_pressure,1,0.2
+smoking,1,0.2
+age,0,0.0

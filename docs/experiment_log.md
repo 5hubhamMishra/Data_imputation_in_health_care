@@ -138,3 +138,69 @@ Selected Heart Failure Clinical Records (UCI id 519). See
     resolvable from single-seed data on this dataset's 60-row test set —
     it needs the full multi-seed manifest and a paired statistical test
     (sections 29, 33), not a further tweak to the masking scheme.
+
+## 2026-09-05 — GA feature selection (E5) and all-features-vs-GA comparison
+
+- **Implemented** `src/genetic_selection.py`: binary chromosome (1 bit per
+  of the 12 features), tournament selection (tournament_size=3),
+  single-point crossover (crossover_probability=0.8), bit-flip mutation
+  (mutation_probability=1/12), elitism (elite_count=2), population=30,
+  generations=30 — all exactly the master prompt's specified defaults
+  (section 25). Zero-feature chromosomes are prevented by a repair step
+  (flip one random bit on) applied at init and after every
+  crossover/mutation.
+- Fitness = mean 5-fold stratified CV F1 (computed on the training split
+  only) minus `0.02 * selected_feature_ratio`. Lambda=0.02 chosen so a
+  full 0-to-1 swing in feature ratio costs at most 0.02 F1 — small
+  relative to this dataset's ~0.05-0.1 CV-F1 noise, nudging toward
+  parsimony without dominating the signal.
+- **Leakage guard**: `run_ga`/`_fitness` accept no test-set argument at
+  all — the held-out test set cannot reach GA fitness by construction.
+  Verified by `tests/test_genetic_selection.py::test_fitness_and_run_ga_have_no_test_set_parameter`
+  (inspects both functions' signatures).
+- **Compute-budget deviation from spec, documented**: GA fitness
+  evaluation uses `n_estimators=50` (`GA_FITNESS_N_ESTIMATORS` in
+  `src/config.py`) instead of the project's standard 200, since fitness is
+  evaluated up to population x generations (900) times per GA run and
+  CV-F1 ranking between feature subsets is stable well before 200 trees.
+  Measured: a single 200-tree/5-fold CV fitness call took ~1.5s on this
+  dataset; 50 trees with no `n_jobs` parallelism overhead took ~0.3s — the
+  combination made 5 full GA runs (900 evaluations each, deduplicated via
+  a per-run fitness cache since elitism/convergence repeat chromosomes)
+  complete in one work cycle instead of an estimated 50-75 minutes. The
+  final all-features-vs-GA comparison uses the standard 200-tree RF config
+  for both variants, so this deviation affects only the search process,
+  not the reported comparison numbers.
+- Ran GA on **complete (unimputed) training data**, one run per each of
+  the 5 established seeds (42/123/2026/7/99) — all 5 completed with real
+  saved output (`experiments/run_ga.py` stdout, generation logs in
+  memory per run). Convergence plot for seed 42:
+  `results/figures/ga_convergence.png`.
+- **Feature-selection frequency** across the 5 runs
+  (`results/tables/ga_feature_frequency.csv`,
+  `results/figures/ga_feature_frequency.png`): `time` and
+  `ejection_fraction` selected in all 5 runs (1.0 frequency);
+  `serum_creatinine` in 4/5 (0.8); `diabetes` in 3/5 (0.6);
+  `serum_sodium`/`platelets`/`anaemia` in 2/5 (0.4) each;
+  `creatinine_phosphokinase`/`sex`/`high_blood_pressure`/`smoking` in 1/5
+  (0.2) each; `age` in 0/5 — never selected across 5 independent runs.
+  Selected feature count per run ranged 4-7 (out of 12).
+- **All-features vs GA-selected** (majority-vote subset, frequency ≥0.5:
+  time, ejection_fraction, serum_creatinine, diabetes — 4/12 features,
+  66.7% reduction), same seed-42 split as E0, same 200-tree RF config,
+  held-out test (n=60): all-features Accuracy 0.817 / Precision 0.786 /
+  Recall 0.579 / F1 0.667 / ROC-AUC 0.883 (reused from
+  `e0_complete_rf_baseline.json`, not rerun) vs GA-selected Accuracy 0.833
+  / Precision 0.800 / Recall 0.632 / F1 0.706 / ROC-AUC 0.815
+  (`results/metrics/all_features_vs_ga_complete.csv`). Mixed result:
+  Accuracy/F1 improved with a much smaller feature set, ROC-AUC dropped.
+  Reported as-is per master prompt section 49 (do not force GA to win) —
+  not yet a statistically supported claim on one seed.
+- Added `tests/test_genetic_selection.py` (5 tests: no zero-feature
+  chromosomes from init, repair flips exactly one bit, fitness/run_ga have
+  no test-set parameter, run_ga returns a non-empty selection on synthetic
+  data, mutation probability matches the configured rate empirically).
+  Full suite: **23/23 passing**.
+- Not yet done (next cycle): Imputation + GA + RF (E6) — applying GA to
+  the MCAR/MAR/MNAR-imputed datasets rather than only complete data; a
+  multi-seed all-features-vs-GA comparison.
