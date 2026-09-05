@@ -6,16 +6,10 @@ scored once, never used for tuning (master prompt section 23).
 """
 
 import json
-import time
 
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import (
-    accuracy_score, f1_score, precision_score, recall_score, roc_auc_score,
-)
-from sklearn.model_selection import StratifiedKFold, cross_val_score
-
-from src.config import METRICS_DIR, RANDOM_SEED
+from src.config import METRICS_DIR
 from src.data_loader import load_raw_data
+from src.prediction import RF_PARAMS, train_evaluate_rf
 from src.preprocessing import train_test_split_stratified
 
 
@@ -23,40 +17,16 @@ def run_baseline():
     df = load_raw_data()
     X_train, X_test, y_train, y_test = train_test_split_stratified(df)
 
-    model = RandomForestClassifier(n_estimators=200, random_state=RANDOM_SEED)
-
-    cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=RANDOM_SEED)
-    cv_f1_scores = cross_val_score(model, X_train, y_train, cv=cv, scoring="f1")
-
-    start = time.perf_counter()
-    model.fit(X_train, y_train)
-    runtime_seconds = time.perf_counter() - start
-
-    y_pred = model.predict(X_test)
-    y_proba = model.predict_proba(X_test)[:, 1]
+    metrics = train_evaluate_rf(X_train, y_train, X_test, y_test)
 
     result = {
         "experiment_id": "E0_complete_RF_baseline",
         "dataset": "heart_failure_clinical_records",
-        "seed": RANDOM_SEED,
-        "n_train": len(X_train),
-        "n_test": len(X_test),
-        "n_features": X_train.shape[1],
-        "model_params": model.get_params(),
-        "cv_f1_mean": float(cv_f1_scores.mean()),
-        "cv_f1_std": float(cv_f1_scores.std()),
-        "test_accuracy": float(accuracy_score(y_test, y_pred)),
-        "test_precision": float(precision_score(y_test, y_pred)),
-        "test_recall": float(recall_score(y_test, y_pred)),
-        "test_f1": float(f1_score(y_test, y_pred)),
-        "test_roc_auc": float(roc_auc_score(y_test, y_proba)),
-        "runtime_seconds": runtime_seconds,
+        "seed": RF_PARAMS["random_state"],
+        "model_params": {k: str(v) for k, v in RF_PARAMS.items()},
         "success": True,
+        **metrics,
     }
-
-    # model_params contains non-JSON-serializable values (e.g. None is fine,
-    # but keep it simple and just stringify anything odd).
-    result["model_params"] = {k: str(v) for k, v in result["model_params"].items()}
 
     METRICS_DIR.mkdir(parents=True, exist_ok=True)
     out_path = METRICS_DIR / "e0_complete_rf_baseline.json"

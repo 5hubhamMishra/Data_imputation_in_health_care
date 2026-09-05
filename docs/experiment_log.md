@@ -33,3 +33,28 @@ Selected Heart Failure Clinical Records (UCI id 519). See
   20% (representative level).
 - Added `src/imputation.py` (mean, median), ran E1 imputation experiment,
   MAE/RMSE per feature/level in `results/metrics/e1_mean_median_imputation.csv`.
+
+## 2026-09-05 — KNN/ML imputation and RF-after-imputation
+
+- Refactored `src/imputation.py` onto sklearn `SimpleImputer`/`KNNImputer`/
+  `IterativeImputer` behind a `fit_imputer`/`apply_imputer` pair (train-fit,
+  test-transform) plus self-contained `impute_*` wrappers for reconstruction
+  scoring. Verified numerically identical to the old fillna-based mean/median
+  by rerunning E0 and E1 — outputs unchanged.
+- Added E2 (KNN, k=5) and E3 (IterativeImputer) reconstruction scoring:
+  `results/metrics/e2_knn_imputation.csv`, `e3_iterative_imputation.csv`.
+  KNN is consistently the worst reconstructor by MAE/RMSE on this dataset;
+  mean/median/iterative are close to each other.
+- Added `src/prediction.py` (shared RF train/evaluate helper, reused by E0
+  and the new experiment) and `experiments/run_prediction.py`: 4 imputation
+  methods x 3 MCAR levels = 12 RF runs, each imputer fit on the masked
+  training split only and applied to an independently-masked test split.
+  Result: `results/metrics/e1_e2_e3_rf_prediction.csv`. At 10% MCAR,
+  KNN-imputed data (Acc 0.817/F1 0.667/ROC-AUC 0.877) nearly matches the E0
+  complete-data baseline (0.817/0.667/0.883) despite being the worst
+  reconstructor — reconstruction quality and downstream prediction quality
+  do not rank the same way here (single-seed observation, not yet
+  statistically tested).
+- Added `tests/test_imputation.py` (3 tests, including a leakage check that
+  a fitted imputer uses train statistics, not test statistics). Full suite:
+  10/10 passing.
