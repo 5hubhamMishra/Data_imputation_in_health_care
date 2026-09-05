@@ -270,3 +270,27 @@ Selected Heart Failure Clinical Records (UCI id 519). See
   or below all-features F1 on average. n=3 is too thin for a formal test;
   reported descriptively, consistent with the complete-data GA result
   (mixed/no reliable win) and master prompt section 49.
+
+## 2026-09-05 — Literature review and verification
+
+- Searched and verified 15 references covering: MCAR/MAR/MNAR theory
+  (Rubin 1976), imputation methods (Troyanskaya 2001 KNNimpute, Stekhoven &
+  Buhlmann 2012 MissForest, van Buuren & Groothuis-Oudshoorn 2011 MICE),
+  Random Forest (Breiman 2001) and this project's exact dataset's origin
+  paper (Chicco & Jurman 2020), GA feature selection (Leardi 1992,
+  Pudjihartono et al. 2022 review, Kumar & Sahoo 2017 GA+RF cardiovascular),
+  a related-but-distinct metaheuristic+RF healthcare paper (Yaqoob et al.
+  2025 — Seagull Optimization, explicitly NOT genetic algorithm, labeled as
+  such), statistical methodology (Demsar 2006), and healthcare-specific
+  imputation comparison studies (Shadbahr et al. 2023, Ren et al. 2024
+  systematic review, Aracri et al. 2025) plus one 2025 arXiv preprint
+  questioning the need for many imputation methods (Grzesiak et al.).
+- Every reference verified by directly fetching the publisher/PMC/JMLR/
+  arXiv page except two: Kumar & Sahoo (2017) and Yaqoob et al. (2025),
+  where the primary PDF/HTML returned HTTP 403; those two are flagged in
+  `results/literature_matrix.csv` as verified via search-indexed metadata
+  only, not an independent full-text read.
+- Files: `results/literature_matrix.csv`, `docs/literature_review.md`.
+- Cross-checked this project's own experimental findings against the
+  literature (see literature_review.md's closing section) rather than
+  treating the review as a separate, disconnected document.

@@ -363,22 +363,42 @@ not yet statistically distinguishable from noise.
   `src/config.py`); this affects only the search process, not the final
   reported comparison metrics, which use the full 200-tree config.
 
+- **IMPLEMENTED, EXECUTED, VALIDATED**: Literature review — 15 references
+  verified against primary/indexed sources (`results/literature_matrix.csv`,
+  `docs/literature_review.md`). Two entries flagged with a verification
+  caveat (full-text fetch blocked by publisher, bibliographic details taken
+  from indexed metadata only); one entry is an unreviewed arXiv preprint,
+  clearly labeled as such. Notable cross-checks: this project's
+  independently-derived GA feature-selection frequency (ejection_fraction,
+  serum_creatinine most selected) agrees with the dataset's origin paper's
+  (Chicco & Jurman 2020) clinical-importance ranking; this project's finding
+  that missingness itself (not imputer choice) drives most of the
+  performance loss matches Shadbahr et al. (2023)'s independent result on
+  different datasets; this project's mixed/negative GA result contrasts
+  with Kumar & Sahoo (2017)'s GA+RF cardiovascular result, discussed
+  honestly rather than suppressed (see literature review §4).
+
 ## Work in Progress
 
-None mid-flight; this cycle's scope (E6 — imputation+GA+RF across all 9
-mechanism x missingness cells, 4-way comparison assembly) is complete and
+None mid-flight; literature review (section 35-36) is complete and
 committed.
 
 ## Next Steps
 
-Full multi-seed coverage of E1-E3 and paired statistical tests are now done
-(see above; `docs/statistical_analysis.md`). Remaining before the report
-draft: full 9-cell/5-seed E6 (GA+imputation) coverage if compute budget
-allows (currently a 3-cell/3-seed subset), literature review/verification
-(sections 35-36), and the RQ1-RQ4 analysis document (section 38) — which can
-now be written from statistically-supported evidence rather than
-single-seed point estimates: RQ1 answer is "missingness hurts prediction
+Remaining before the report draft: the RQ1-RQ4 analysis document (section
+38), now writable from both statistically-supported experimental evidence
+and literature context: RQ1 answer is "missingness hurts prediction
 (supported, p<0.05 in 4/9 cells)" but "which mechanism/level is worst"
-remains unsupported at this sample size; RQ3 (does GA help) now has
-multi-seed evidence for 3 cells all pointing to "no" or "negligible,"
-consistent with the complete-data GA result.
+remains unsupported at this sample size; RQ2 (best imputer) is not
+statistically distinguishable at n=5 seeds, consistent with Ren et al.
+(2024)'s and Aracri et al. (2025)'s literature finding that no single
+imputer universally dominates; RQ3 (does GA help) has multi-seed evidence
+for 3 cells all pointing to "no" or "negligible," consistent with the
+complete-data GA result; RQ4 (comparison with existing research) can now
+draw on the literature matrix, particularly the Chicco & Jurman (2020)
+feature-importance agreement and the Kumar & Sahoo (2017) GA-result
+contrast. After RQ analysis: required tables/figures consolidation
+(section 37), final experiment audit, report_data/ package, and the final
+academic report draft. Full 9-cell/5-seed E6 (GA+imputation) coverage
+beyond the current 3-cell/3-seed subset remains optional/lower-priority
+given the subset already shows a consistent (non-)pattern.
