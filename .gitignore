@@ -10,3 +10,6 @@ venv/
 
 # Claude Code local plugin cache, not project content.
 .claude/
+
+# Personal, local-only notes/files — never pushed to GitHub.
+personal_notes/
