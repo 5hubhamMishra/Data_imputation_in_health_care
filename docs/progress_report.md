@@ -456,12 +456,38 @@ None mid-flight; literature review (section 35-36) and RQ1-RQ4 analysis
   report_data/ package (section 43) and final academic report draft
   (section 31).
 
+## Report Data Package (Phase 30)
+
+- Built `report_data/` with exactly the structure master prompt section 43
+  specifies: `dataset_summary.md`, `methodology_summary.md`,
+  `experiment_setup.md`, `results_summary.md`, `research_questions.md`,
+  `discussion_points.md`, `limitations.md`, `future_work.md`,
+  `references.bib`, `tables/`, `figures/`.
+- Each `.md` file is a condensed synthesis of already-validated content in
+  `docs/*.md` and `results/*` — no new numbers were computed and nothing
+  here introduces a claim not already present in the source docs. Every
+  file/number cited in `report_data/` traces back to a file already listed
+  in this progress report or `docs/research_question_analysis.md`.
+- `report_data/tables/` and `report_data/figures/` are plain copies of the
+  4 report-ready tables (`results/tables/*.csv`), the dataset comparison and
+  literature matrix (`results/dataset_candidate_comparison.csv`,
+  `results/literature_matrix.csv`), and all 12 figures from
+  `results/figures/` — the aggregate/report-ready artifacts, not the raw
+  per-run intermediate CSVs in `results/metrics/` (those remain cited by
+  path from the `.md` summaries instead of duplicated).
+- `references.bib` was generated from the 15 verified entries in
+  `results/literature_matrix.csv`; the two entries with a fetch-blocked
+  verification caveat (Kumar & Sahoo 2017, Yaqoob et al. 2025) and the one
+  arXiv preprint (Grzesiak et al. 2025) carry their caveats as BibTeX
+  comments/notes so they are not silently upgraded to fully-verified status.
+- No experiments were rerun or regenerated for this phase; it is pure
+  curation of existing validated outputs.
+
 ## Next Steps
 
-Required tables/figures consolidation (section 37 — already completed
-above, phase 24-25) and final experiment audit (already completed above,
-phase 28) are both done. Remaining: the report_data/ package (section 43),
-the final academic report draft (section 31), and the final
+Required tables/figures consolidation (section 37), final experiment audit
+(section 28), and the report_data/ package (section 43) are all done.
+Remaining: the final academic report draft (section 31), and the final
 reproducibility/repository audit (section 32). Full 9-cell/5-seed E6
 (GA+imputation) coverage beyond the current 3-cell/3-seed subset remains
 optional/lower-priority given the subset already shows a consistent
