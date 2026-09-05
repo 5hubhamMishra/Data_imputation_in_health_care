@@ -59,15 +59,15 @@ pytest
 Reproduce the main pipeline in this order:
 
 ```
-python experiments/run_baselines.py
-python experiments/run_missingness.py
-python experiments/run_imputation.py
-python experiments/run_prediction.py
-python experiments/run_ga.py
-python experiments/run_e6.py
-python experiments/run_multiseed_matrix.py
-python experiments/run_statistics.py
-python experiments/run_e6_multiseed_subset.py
+python -m experiments.run_baselines
+python -m experiments.run_missingness
+python -m experiments.run_imputation
+python -m experiments.run_prediction
+python -m experiments.run_ga
+python -m experiments.run_e6
+python -m experiments.run_multiseed_matrix
+python -m experiments.run_statistics
+python -m experiments.run_e6_multiseed_subset
 ```
 
 The multi-seed matrix and E6 GA sweep are computationally expensive. Existing
