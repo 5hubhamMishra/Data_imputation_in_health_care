@@ -46,11 +46,33 @@ pip install -r requirements.txt
 
 ## Running Experiments
 
-Once implemented:
+Create an environment, install the pinned dependencies, then run the scripts
+from the repository root:
 
 ```
-python experiments/run_all.py
+python -m venv .venv
+.venv\Scripts\Activate.ps1        # Windows PowerShell
+python -m pip install -r requirements.txt
+pytest
 ```
+
+Reproduce the main pipeline in this order:
+
+```
+python experiments/run_baselines.py
+python experiments/run_missingness.py
+python experiments/run_imputation.py
+python experiments/run_prediction.py
+python experiments/run_ga.py
+python experiments/run_e6.py
+python experiments/run_multiseed_matrix.py
+python experiments/run_statistics.py
+python experiments/run_e6_multiseed_subset.py
+```
+
+The multi-seed matrix and E6 GA sweep are computationally expensive. Existing
+validated outputs are already stored under `results/`; run those scripts when
+you need to regenerate them.
 
 ## Progress Reporting
 
