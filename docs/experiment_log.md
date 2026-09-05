@@ -294,3 +294,31 @@ Selected Heart Failure Clinical Records (UCI id 519). See
 - Cross-checked this project's own experimental findings against the
   literature (see literature_review.md's closing section) rather than
   treating the review as a separate, disconnected document.
+
+## 2026-09-05 — RQ1-RQ4 analysis
+
+- Wrote `docs/research_question_analysis.md`, sourcing every number from an
+  existing result file (no new experiments this cycle) — statistical_tests.csv,
+  e1_e2_e3_multiseed_summary.csv, ga_feature_frequency.csv,
+  all_features_vs_ga_complete.csv, four_way_comparison.csv,
+  e6_multiseed_subset.csv, literature_matrix.csv.
+- Confirmed directly from `src/preprocessing.py` that `seed` is passed as
+  `train_test_split`'s `random_state`, so each of the 5 repeated seeds draws
+  a fresh 80/20 split, not just fresh RF/masking randomness — documented as
+  a design note since it affects how "multi-seed variance" should be read.
+- Independently recomputed the E6 multi-seed subset's per-cell means
+  straight from `e6_multiseed_subset.csv` rather than trusting the prior
+  cycle's summary claim: MCAR 30% (iterative) mean all-features F1 = 0.647
+  vs mean GA F1 = 0.632; MNAR 30% (iterative) 0.634 vs 0.607; MAR 20% (knn)
+  0.724 vs 0.676 — confirms GA underperforms all-features on average in all
+  3 sampled cells, matching (not just repeating) the earlier report.
+- RQ1: missingness hurts prediction (4/9 p<0.05), mechanism not
+  distinguishable (0/9 significant) — matches Shadbahr et al. (2023)
+  independently. RQ2: no imputer statistically distinguishable (0/9
+  significant) — matches Aracri et al. (2025). RQ3: GA's predictive gains
+  are noise (multi-seed check inverts the single-seed "win"), but GA's
+  feature-selection frequency is real and matches the dataset's own origin
+  paper (Chicco & Jurman 2020) — stated as GA's genuine, defensible
+  contribution rather than framed as a failure. RQ4: own 4-way comparison
+  plus literature agreements/divergences, no cross-dataset numbers presented
+  as head-to-head (section 36).

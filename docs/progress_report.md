@@ -132,6 +132,25 @@ RQ1-RQ4 as stated in README.md.
   real per-cell effect — consistent with master prompt section 49 (do not
   force GA to win).
 
+- **IMPLEMENTED, EXECUTED, VALIDATED**: Research-question analysis
+  (`docs/research_question_analysis.md`, master prompt section 38) —
+  RQ1-RQ4 answered strictly from files already on disk (statistical tests,
+  multi-seed summaries, GA frequency/comparison tables, literature review).
+  Confirms via the actual `train_test_split_stratified` code that each of
+  the 5 seeds draws a fresh train/test split, not just fresh model
+  randomness — noted as a design fact relevant to interpreting all
+  multi-seed results. RQ1: missingness hurts prediction (supported,
+  4/9 p<0.05) but mechanism is not distinguishable (0/9 significant). RQ2:
+  no imputer statistically distinguishable (0/9 significant). RQ3: GA
+  reliably selects a stable, clinically-plausible subset (time,
+  ejection_fraction consistently chosen) but does not reliably improve
+  prediction — independently confirmed by recomputing the 3-cell/3-seed E6
+  subset's per-seed values directly from `e6_multiseed_subset.csv` (GA mean
+  F1 below all-features mean F1 in all 3 cells: MCAR30 0.632 vs 0.647,
+  MNAR30 0.607 vs 0.634, MAR20 0.676 vs 0.724). RQ4: own 4-way comparison
+  (E0/E1-E3/E5/E6) plus literature context, agreements/divergences stated
+  explicitly, no cross-dataset numbers presented as head-to-head.
+
 ## Current Dataset and Characteristics
 
 Heart Failure Clinical Records (UCI, id 519). 299 rows, 12 features,
@@ -380,25 +399,14 @@ not yet statistically distinguishable from noise.
 
 ## Work in Progress
 
-None mid-flight; literature review (section 35-36) is complete and
-committed.
+None mid-flight; literature review (section 35-36) and RQ1-RQ4 analysis
+(section 38) are both complete and committed.
 
 ## Next Steps
 
-Remaining before the report draft: the RQ1-RQ4 analysis document (section
-38), now writable from both statistically-supported experimental evidence
-and literature context: RQ1 answer is "missingness hurts prediction
-(supported, p<0.05 in 4/9 cells)" but "which mechanism/level is worst"
-remains unsupported at this sample size; RQ2 (best imputer) is not
-statistically distinguishable at n=5 seeds, consistent with Ren et al.
-(2024)'s and Aracri et al. (2025)'s literature finding that no single
-imputer universally dominates; RQ3 (does GA help) has multi-seed evidence
-for 3 cells all pointing to "no" or "negligible," consistent with the
-complete-data GA result; RQ4 (comparison with existing research) can now
-draw on the literature matrix, particularly the Chicco & Jurman (2020)
-feature-importance agreement and the Kumar & Sahoo (2017) GA-result
-contrast. After RQ analysis: required tables/figures consolidation
-(section 37), final experiment audit, report_data/ package, and the final
-academic report draft. Full 9-cell/5-seed E6 (GA+imputation) coverage
-beyond the current 3-cell/3-seed subset remains optional/lower-priority
-given the subset already shows a consistent (non-)pattern.
+Required tables/figures consolidation (section 37 — most already exist,
+check for gaps), final experiment audit (section 47), the report_data/
+package (section 43), and the final academic report draft. Full 9-cell/
+5-seed E6 (GA+imputation) coverage beyond the current 3-cell/3-seed subset
+remains optional/lower-priority given the subset already shows a
+consistent (non-)pattern.
