@@ -204,3 +204,35 @@ Selected Heart Failure Clinical Records (UCI id 519). See
 - Not yet done (next cycle): Imputation + GA + RF (E6) — applying GA to
   the MCAR/MAR/MNAR-imputed datasets rather than only complete data; a
   multi-seed all-features-vs-GA comparison.
+
+## Cycle: Imputation + GA + Random Forest (E6)
+
+- Per-cell imputer selection was read from `e1_e2_e3_rf_prediction.csv`
+  (`idxmax` on `test_f1` grouped by mechanism/missing_pct), not assumed:
+  MAR 10/20/30 → knn; MCAR 10 → knn, MCAR 20/30 → iterative; MNAR 10/20 →
+  median, MNAR 30 → iterative.
+- `run_ga` (`src/genetic_selection.py`) gained optional
+  `population_size`/`generations` parameters, defaulting to the unchanged
+  30/30 (E5's already-reported values are untouched). E6 calls it with
+  20/15 — measured cost at 30/30 was ~204s/cell, x9 cells > 30 minutes;
+  20/15 measured ~90-110s/cell. This only reduces search thoroughness for
+  E6's sweep, not E5's complete-data result.
+- All 9 cells completed with real, saved metrics — none skipped
+  (`results/metrics/e6_imputed_ga_rf.csv`). GA-selected feature counts
+  ranged 2-11 (out of 12) across cells.
+- 4-way comparison assembled (`results/tables/four_way_comparison.csv`,
+  `results/figures/four_way_comparison.png`): complete+RF (E0, constant
+  reference), complete+GA+RF (E5, constant reference), imputed+RF (E1-E3,
+  per-cell), imputed+GA+RF (E6, per-cell, this cycle).
+- Headline: GA improved F1 in 3/9 cells (MCAR 20%, MCAR 30%, MNAR 10%),
+  tied in 1/9 (MAR 20%), hurt in 5/9. Consistent with the complete-data GA
+  result (also mixed) — no evidence GA reliably helps on this dataset,
+  reported as-is per master prompt section 49.
+- Added `tests/test_run_e6.py` — patches `run_ga` to record the row
+  indices it receives and asserts they equal the training split's indices
+  exactly (disjoint from the test split), confirming the E6 pipeline's
+  masking/imputation/GA sequence never leaks test rows into GA fitness.
+  Full suite: **24/24 passing**.
+- Not yet done (next cycle): full multi-seed coverage of E1-E3/E6 (all 9
+  cells currently single-seed), paired significance tests (section 33)
+  before any RQ conclusion is drawn.

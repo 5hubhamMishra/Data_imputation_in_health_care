@@ -88,6 +88,20 @@ RQ1-RQ4 as stated in README.md.
   comparison still uses the full 200-tree config for both sides. Ran on
   complete (unimputed) data across all 5 established seeds
   (`experiments/run_ga.py`). 5 new tests, full suite 23/23 passing.
+- **IMPLEMENTED, EXECUTED, VALIDATED**: Imputation + GA + Random Forest (E6,
+  `experiments/run_e6.py`) — all 9 mechanism x missingness cells completed
+  (none skipped). Per cell, the imputer with the best downstream F1 in
+  `e1_e2_e3_rf_prediction.csv` was carried forward (read from that file, not
+  assumed), GA ran on the imputed training data only (`run_ga` extended
+  with optional `population_size`/`generations` args, defaulting to the
+  unchanged 30/30 used by E5; E6 passes 20/15 — documented compute-budget
+  reduction for the 9-cell sweep, measured at ~204s/cell at 30/30 vs ~90s at
+  20/15), and RF was evaluated on the GA-selected subset using the
+  correspondingly-imputed test data. Results: `results/metrics/e6_imputed_ga_rf.csv`.
+  4-way comparison (E0/E1-E3/E5/E6) assembled into
+  `results/tables/four_way_comparison.csv` and `results/figures/four_way_comparison.png`.
+  New leakage test (`tests/test_run_e6.py`) confirms GA fitness only ever
+  receives the training-split row indices. Full suite: 24/24 passing.
 
 ## Current Dataset and Characteristics
 
@@ -233,6 +247,28 @@ Accuracy/F1 with a two-thirds smaller feature set, but ROC-AUC dropped.
 Single seed-42 split — not yet a statistically supported claim that GA
 "wins"; needs the multi-seed comparison next.
 
+**Imputation + GA + Random Forest (E6)** — GA applied on top of the
+best-per-cell imputer (seed 42, single seed like the other E6 predecessors):
+
+| mechanism | % | imputer | features (before→after) | imputed+all-features F1 | imputed+GA F1 |
+|---|---|---|---|---|---|
+| MAR | 10 | knn | 12→6 | 0.743 | 0.667 |
+| MAR | 20 | knn | 12→8 | 0.647 | 0.647 |
+| MAR | 30 | knn | 12→5 | 0.833 | 0.757 |
+| MCAR | 10 | knn | 12→7 | 0.667 | 0.647 |
+| MCAR | 20 | iterative | 12→11 | 0.588 | 0.606 |
+| MCAR | 30 | iterative | 12→7 | 0.444 | 0.500 |
+| MNAR | 10 | median | 12→6 | 0.706 | 0.722 |
+| MNAR | 20 | median | 12→2 | 0.500 | 0.417 |
+| MNAR | 30 | iterative | 12→4 | 0.571 | 0.452 |
+
+GA improved F1 in 3/9 cells (MCAR 20%, MCAR 30%, MNAR 10%), matched in 1/9
+(MAR 20%), and hurt in 5/9. Same honest read as the complete-data GA result:
+no consistent win, on either side (master prompt section 49) — GA does not
+reliably help once imputation is already in the pipeline on this dataset,
+and this is a single-seed result per cell, so the mixed pattern itself is
+not yet statistically distinguishable from noise.
+
 ## Important Tables/Figures
 
 - `results/dataset_candidate_comparison.csv`
@@ -253,6 +289,9 @@ Single seed-42 split — not yet a statistically supported claim that GA
 - `results/figures/ga_feature_frequency.png`
 - `results/tables/ga_feature_frequency.csv`
 - `results/metrics/all_features_vs_ga_complete.csv`
+- `results/metrics/e6_imputed_ga_rf.csv`
+- `results/tables/four_way_comparison.csv`
+- `results/figures/four_way_comparison.png`
 
 ## Problems/Limitations
 
@@ -286,12 +325,15 @@ Single seed-42 split — not yet a statistically supported claim that GA
 
 ## Work in Progress
 
-None mid-flight; this cycle's scope (GA implementation, complete-data GA
-baseline, all-features-vs-GA comparison) is complete and committed.
+None mid-flight; this cycle's scope (E6 — imputation+GA+RF across all 9
+mechanism x missingness cells, 4-way comparison assembly) is complete and
+committed.
 
 ## Next Steps
 
-Imputation + GA + Random Forest (E6): apply the now-validated GA to the
-MCAR/MAR/MNAR-imputed datasets, not just complete data. Full multi-seed
-coverage and paired statistical tests (sections 29, 33) before any
-RQ1/RQ2/RQ3 conclusion is finalized in the report draft.
+Full multi-seed coverage of every mechanism x level x imputer (and now
+E6) cell, plus paired statistical significance tests (sections 29, 33) —
+required before any RQ1/RQ2/RQ3/RQ4 conclusion is finalized in the report
+draft, since every comparison so far (MAR vs MCAR, GA vs no-GA, both on
+complete and imputed data) has been single-seed and within the noise band
+established by the existing 5-seed E0/E1 runs (F1 std 0.08-0.12).

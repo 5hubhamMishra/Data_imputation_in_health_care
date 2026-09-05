@@ -92,8 +92,21 @@ def _mutate(chromosome: np.ndarray, mutation_probability: float, rng: np.random.
     return chromosome
 
 
-def run_ga(X_train: pd.DataFrame, y_train: pd.Series, seed: int = RANDOM_SEED) -> dict:
+def run_ga(
+    X_train: pd.DataFrame,
+    y_train: pd.Series,
+    seed: int = RANDOM_SEED,
+    population_size: int = GA_POPULATION_SIZE,
+    generations: int = GA_GENERATIONS,
+) -> dict:
     """Run one GA feature-selection search using only X_train/y_train.
+
+    `population_size`/`generations` default to the master-prompt-specified
+    30/30 (used by E5's reported complete-data results). A caller may pass
+    smaller values to cut cost for a large combinatorial sweep (e.g. E6's
+    9-cell mechanism x missingness x GA run) - this only changes search
+    thoroughness for that caller, not the E5 baseline or its documented
+    parameters.
 
     Returns the best chromosome/selected features found across all
     generations, plus a per-generation log (best/mean fitness, selected
@@ -104,11 +117,11 @@ def run_ga(X_train: pd.DataFrame, y_train: pd.Series, seed: int = RANDOM_SEED) -
     mutation_probability = 1.0 / n_features
     cache: dict = {}
 
-    population = _init_population(n_features, GA_POPULATION_SIZE, rng)
+    population = _init_population(n_features, population_size, rng)
     generation_log = []
     best_chromosome, best_fitness = None, -np.inf
 
-    for generation in range(GA_GENERATIONS):
+    for generation in range(generations):
         fitnesses = np.array([_fitness(c, X_train, y_train, seed, cache) for c in population])
 
         gen_best_idx = int(np.argmax(fitnesses))
@@ -126,7 +139,7 @@ def run_ga(X_train: pd.DataFrame, y_train: pd.Series, seed: int = RANDOM_SEED) -
         elite_idx = np.argsort(fitnesses)[-GA_ELITE_COUNT:]
         next_population = [population[i].copy() for i in elite_idx]
 
-        while len(next_population) < GA_POPULATION_SIZE:
+        while len(next_population) < population_size:
             parent_a = _tournament_select(population, fitnesses, GA_TOURNAMENT_SIZE, rng)
             parent_b = _tournament_select(population, fitnesses, GA_TOURNAMENT_SIZE, rng)
             child_a, child_b = _crossover(parent_a, parent_b, rng)
@@ -135,7 +148,7 @@ def run_ga(X_train: pd.DataFrame, y_train: pd.Series, seed: int = RANDOM_SEED) -
                 _repair(child, rng)
                 next_population.append(child)
 
-        population = np.array(next_population[:GA_POPULATION_SIZE])
+        population = np.array(next_population[:population_size])
 
     return {
         "seed": seed,
