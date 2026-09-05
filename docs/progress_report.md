@@ -402,6 +402,25 @@ not yet statistically distinguishable from noise.
 None mid-flight; literature review (section 35-36) and RQ1-RQ4 analysis
 (section 38) are both complete and committed.
 
+## Consolidation Check (Phase 24-25)
+
+- Verified every file path listed under "Important Tables/Figures" above,
+  plus every results/ path referenced anywhere in `docs/*.md` and
+  `README.md`, exists on disk. No missing files, no broken references.
+- Checked `results/figures/`, `results/tables/`, `results/metrics/` for
+  orphans (files present but never referenced by any doc). None found —
+  the six `missing_per_feature_*`/`missingness_heatmap_*` figures are
+  covered by a brace-expansion shorthand in this file's figure list rather
+  than named individually, which is not a gap.
+- Spot-checked numbers that recur across multiple docs (E0 Accuracy/F1/
+  ROC-AUC 0.817/0.667/0.883; 27 paired tests with 4/9 "cost of missingness"
+  significant; full suite 24/24 passing; GA F1 0.667→0.706 / ROC-AUC
+  0.883→0.815) across `progress_report.md`, `experiment_log.md`,
+  `statistical_analysis.md`, `research_question_analysis.md`, and
+  `literature_review.md` — all consistent, no discrepancies found.
+- Reran `pytest`: 24/24 passing, unchanged.
+- No fixes were needed; nothing regenerated.
+
 ## Next Steps
 
 Required tables/figures consolidation (section 37 — most already exist,
