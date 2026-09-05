@@ -102,6 +102,35 @@ RQ1-RQ4 as stated in README.md.
   `results/tables/four_way_comparison.csv` and `results/figures/four_way_comparison.png`.
   New leakage test (`tests/test_run_e6.py`) confirms GA fitness only ever
   receives the training-split row indices. Full suite: 24/24 passing.
+- **IMPLEMENTED, EXECUTED, VALIDATED**: Full multi-seed coverage of the
+  E1-E3 matrix (`experiments/run_multiseed_matrix.py`) — 3 mechanisms x 3
+  levels x 4 imputers x 5 seeds = 180 runs, all completed
+  (`results/metrics/e1_e2_e3_multiseed.csv`, aggregated mean/std/min/max/
+  count per cell in `e1_e2_e3_multiseed_summary.csv`, master prompt section
+  32).
+- **IMPLEMENTED, EXECUTED, VALIDATED**: Paired statistical analysis
+  (`experiments/run_statistics.py`, `docs/statistical_analysis.md`, master
+  prompt sections 32-33) — 27 paired t-tests (+ Wilcoxon cross-check) across
+  the 5-seed matrix: imputer-vs-imputer (9, all non-significant), mechanism-
+  vs-mechanism (9, all non-significant), and complete-data-vs-imputed "cost
+  of missingness" (9, **4 significant at p<0.05**: MCAR 10%/20%, MNAR
+  20%/30%). No multiple-comparison correction applied (documented reasoning:
+  n=5 makes any correction procedure trivially non-significant everywhere).
+- **IMPLEMENTED, EXECUTED, VALIDATED**: Small GA multi-seed expansion
+  (`experiments/run_e6_multiseed_subset.py`,
+  `results/metrics/e6_multiseed_subset.csv`) — the 3 most interesting E6
+  cells from the seed-42 result (MCAR 30% = biggest GA gain, MNAR 30% =
+  biggest GA loss, MAR 20% = tied), rerun across 3 seeds (42/123/2026) with
+  GA's existing reduced settings (population=20, generations=15). Result:
+  the seed-42 "biggest GA gain" cell (MCAR 30%, F1 0.444→0.500) does **not**
+  hold up — averaged over 3 seeds, all-features F1 (0.647) is actually
+  slightly *higher* than GA F1 (0.632) in that same cell. All three
+  subsampled cells show GA at or below all-features F1 on average
+  (MAR 20%: 0.724→0.676; MNAR 30%: 0.634→0.607). This confirms, with actual
+  multi-seed evidence rather than inspection, that the single-seed E6
+  "GA sometimes helps" cells were substantially seed-specific noise, not a
+  real per-cell effect — consistent with master prompt section 49 (do not
+  force GA to win).
 
 ## Current Dataset and Characteristics
 
@@ -292,14 +321,25 @@ not yet statistically distinguishable from noise.
 - `results/metrics/e6_imputed_ga_rf.csv`
 - `results/tables/four_way_comparison.csv`
 - `results/figures/four_way_comparison.png`
+- `results/metrics/e1_e2_e3_multiseed.csv`
+- `results/metrics/e1_e2_e3_multiseed_summary.csv`
+- `results/tables/statistical_tests.csv`
+- `docs/statistical_analysis.md`
+- `results/metrics/e6_multiseed_subset.csv`
 
 ## Problems/Limitations
 
-- Only one seed run so far for most experiment cells (E1-E3 across all
-  mechanisms/levels, RF-after-imputation); the repeated-seed pattern is
-  established for E0 and E1@MCAR20 only (std of 0.08-0.12 on F1 across 5
-  seeds) — full multi-seed coverage of every cell is still needed before
-  any method/mechanism ranking is statistically supported.
+- Full multi-seed coverage (180 runs) now exists for E1-E3, and 27 paired
+  statistical tests confirm honestly: no imputer or mechanism is
+  statistically distinguishable from its rivals at n=5 seeds (0/18 tests
+  significant), but missingness itself measurably hurts prediction relative
+  to complete data (4/9 "cost of missingness" tests significant). RQ1's
+  fine-grained "which mechanism is worst" cannot be answered from this
+  dataset at this sample size — the honest, supportable claim is "missing
+  data hurts prediction" not "mechanism X hurts more than mechanism Y."
+  E6 (GA) multi-seed coverage remains a 3-cell/3-seed subset, not the full
+  9-cell/5-seed matrix (compute budget) — see `docs/statistical_analysis.md`
+  for full methodology and all 27 test results.
 - `time` column leakage-adjacency noted above needs explicit treatment in
   the final discussion/limitations section.
 - **MAR/MNAR vs MCAR/E0 comparison remains inconclusive on single-seed
@@ -331,9 +371,14 @@ committed.
 
 ## Next Steps
 
-Full multi-seed coverage of every mechanism x level x imputer (and now
-E6) cell, plus paired statistical significance tests (sections 29, 33) —
-required before any RQ1/RQ2/RQ3/RQ4 conclusion is finalized in the report
-draft, since every comparison so far (MAR vs MCAR, GA vs no-GA, both on
-complete and imputed data) has been single-seed and within the noise band
-established by the existing 5-seed E0/E1 runs (F1 std 0.08-0.12).
+Full multi-seed coverage of E1-E3 and paired statistical tests are now done
+(see above; `docs/statistical_analysis.md`). Remaining before the report
+draft: full 9-cell/5-seed E6 (GA+imputation) coverage if compute budget
+allows (currently a 3-cell/3-seed subset), literature review/verification
+(sections 35-36), and the RQ1-RQ4 analysis document (section 38) — which can
+now be written from statistically-supported evidence rather than
+single-seed point estimates: RQ1 answer is "missingness hurts prediction
+(supported, p<0.05 in 4/9 cells)" but "which mechanism/level is worst"
+remains unsupported at this sample size; RQ3 (does GA help) now has
+multi-seed evidence for 3 cells all pointing to "no" or "negligible,"
+consistent with the complete-data GA result.

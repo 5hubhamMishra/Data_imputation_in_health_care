@@ -236,3 +236,37 @@ Selected Heart Failure Clinical Records (UCI id 519). See
 - Not yet done (next cycle): full multi-seed coverage of E1-E3/E6 (all 9
   cells currently single-seed), paired significance tests (section 33)
   before any RQ conclusion is drawn.
+
+## Cycle: Multi-seed matrix, statistical analysis, GA multi-seed subset
+
+- **`experiments/run_multiseed_matrix.py`**: extended the E1-E3 pipeline to
+  all 5 established seeds (previously only E0/E1@MCAR20 had this). 180 runs
+  (3 mechanisms x 3 levels x 4 imputers x 5 seeds), all completed —
+  `results/metrics/e1_e2_e3_multiseed.csv` (per-run) and
+  `e1_e2_e3_multiseed_summary.csv` (mean/std/min/max/count per cell, section
+  32). Runtime ~5 min (backgrounded after exceeding a 300s foreground
+  timeout — IterativeImputer is the dominant cost, not RF).
+- **`experiments/run_statistics.py`**: 27 paired t-tests (+ Wilcoxon
+  cross-check), pairing by seed (same seed -> same held-out test set across
+  every mechanism/method run, which is what a paired design requires) —
+  full methodology and results in `docs/statistical_analysis.md`,
+  `results/tables/statistical_tests.csv`. Headline: 0/9 imputer-vs-imputer
+  and 0/9 mechanism-vs-mechanism comparisons reach p<0.05 (single-seed
+  rankings were noise); 4/9 complete-vs-imputed "cost of missingness"
+  comparisons do reach p<0.05 (MCAR 10%/20%, MNAR 20%/30%) — the one
+  statistically supported claim in this analysis. No multiple-comparison
+  correction applied (documented: n=5 makes any correction procedure
+  trivially non-significant everywhere; these are exploratory diagnostics,
+  not a confirmatory family).
+- **`experiments/run_e6_multiseed_subset.py`**: reran 3 of E6's 9 cells
+  (MCAR 30% = seed-42's biggest GA gain, MNAR 30% = biggest GA loss, MAR 20%
+  = tied) across 3 seeds (42/123/2026), reusing the "imputed all-features"
+  side from the already-computed multiseed matrix and only rerunning GA
+  (same reduced settings: population=20, generations=15). Result:
+  `results/metrics/e6_multiseed_subset.csv`. The seed-42 "biggest GA gain"
+  (MCAR 30%: 0.444->0.500) does not survive averaging over 3 seeds
+  (mean all-features 0.647 vs mean GA 0.632 — GA is actually slightly
+  *worse* on average in that same cell). All 3 subsampled cells show GA at
+  or below all-features F1 on average. n=3 is too thin for a formal test;
+  reported descriptively, consistent with the complete-data GA result
+  (mixed/no reliable win) and master prompt section 49.
