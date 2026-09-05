@@ -497,7 +497,7 @@ evidence should not be forced toward a predetermined conclusion.
 - Missingness and imputation are scoped to the seven continuous features; the five
   binary clinical flags are not masked, since mean/median imputation is not a meaningful
   reconstruction target for a binary indicator.
-- The `time` column's leakage-adjacency, discussed in Section 20 (Discussion) and
+- The `time` column's leakage-adjacency, discussed in Section 18 (Discussion) and
   Section 7 (Dataset), is retained as a documented methodological decision rather than
   removed, and its outsized influence on Random Forest performance should not be read as
   a genuine predictive discovery.

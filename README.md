@@ -17,8 +17,10 @@ selection improves downstream Random Forest prediction.
 
 ## Status
 
-Dataset not yet selected. See `docs/dataset_selection.md` once candidate
-comparison is complete.
+Project complete through the final experiment audit, report package, and
+academic report draft. See `docs/final_report.md`,
+`docs/supervisor_progress_summary.md`, and
+`docs/reproducibility_audit.md`.
 
 ## Repository Structure
 
