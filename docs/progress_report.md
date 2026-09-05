@@ -543,12 +543,34 @@ remaining limitations, deliverables list) sourced only from
 - **Result: no repository-hygiene or reproducibility issues found. All 32
   phases of the master prompt's execution plan are now complete.**
 
+## Named-Deliverable Cleanup (Sections 12, 29)
+
+A section-by-section re-read of the master prompt against the actual repo
+file tree found three named deliverables that were never produced, despite
+the underlying phase work being complete:
+
+- **`results/experiment_manifest.csv`** (section 29). Built retrospectively
+  from the already-validated per-experiment result files
+  (`e1_e2_e3_multiseed.csv`, `repeated_seeds_e0.csv`,
+  `all_features_vs_ga_complete.csv`, `e6_imputed_ga_rf.csv`,
+  `e6_multiseed_subset.csv`) rather than by a live orchestrator, since the
+  project deliberately uses one script per experiment group instead of a
+  single `run_all.py` (documented in `docs/final_report.md`'s limitations).
+  201 rows, one per distinct executed run, each traceable via its
+  `source_file` column; duplicate runs that appear in more than one source
+  file (e.g. an E6 cell's "imputed, no GA" comparator is the same run
+  already recorded in the E1-E3 multiseed matrix) were included once, not
+  double-counted. No value was computed, rounded, or invented — every field
+  is a direct read from an existing results file.
+- **`docs/methodology.md`** and **`docs/results_summary.md`** (section 12's
+  recommended structure). Both created as standalone consolidations of
+  content already present in `docs/final_report.md` and
+  `report_data/results_summary.md` — no new claim introduced.
+
 ## Next Steps
 
-All 32 phases of the master prompt's plan are complete: tables/figures
-consolidation (37), final experiment audit (28), the report_data/ package
-(43), the final academic report draft (31), the supervisor progress summary
-(41), and the final reproducibility/repository audit (32). The only
+All 32 phases of the master prompt's plan are complete, and the three
+previously-missing named deliverables above are now in place. The only
 remaining item is explicitly-documented optional future work, not an
 unmet requirement: full 9-cell/5-seed E6 (GA+imputation) coverage beyond
 the current 3-cell/3-seed subset, which already shows a consistent
