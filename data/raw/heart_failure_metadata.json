@@ -1,0 +1,19 @@
+{
+  "dataset_name": "Heart Failure Clinical Records",
+  "source_url": "https://archive.ics.uci.edu/dataset/519/heart+failure+clinical+records",
+  "download_url": "https://archive.ics.uci.edu/static/public/519/heart+failure+clinical+records.zip",
+  "access_date": "2026-09-05",
+  "license": "CC BY 4.0",
+  "citation": "Chicco, D., Jurman, G. Machine learning can predict survival of patients with heart failure from serum creatinine and ejection fraction alone. BMC Medical Informatics and Decision Making 20, 16 (2020).",
+  "original_filename": "heart_failure_clinical_records_dataset.csv",
+  "sha256": "9c73cea7468ff5d517801ec050fe9993da5912fce4b56f296f8df3b38dd75912",
+  "target_column": "DEATH_EVENT",
+  "shape": [299, 13],
+  "duplicate_rows": 0,
+  "missing_values_total": 0,
+  "class_distribution": {"0": 203, "1": 96},
+  "identifier_columns": [],
+  "leakage_prone_columns": [
+    "time (follow-up period length in days; short follow-up correlates strongly with DEATH_EVENT by construction in survival-style data, so RF/GA runs and their discussion must treat this as a known confound, not a discovered predictor)"
+  ]
+}

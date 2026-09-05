@@ -36,6 +36,8 @@ tests/               unit and smoke tests
 
 ## Setup
 
+Python 3.12+.
+
 ```
 pip install -r requirements.txt
 ```
