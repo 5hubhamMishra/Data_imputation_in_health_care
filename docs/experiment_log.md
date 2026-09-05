@@ -322,3 +322,15 @@ Selected Heart Failure Clinical Records (UCI id 519). See
   contribution rather than framed as a failure. RQ4: own 4-way comparison
   plus literature agreements/divergences, no cross-dataset numbers presented
   as head-to-head (section 36).
+
+## 2026-09-05 — Final closure audit
+
+- Completed and committed the supervisor progress summary and reproducibility
+  audit required by the final project package.
+- Updated the README to reflect the actual completed status and corrected one
+  stale section reference in the final report.
+- Verified the required result coverage again: 180 E1-E3 multi-seed rows,
+  27 statistical-test rows, 9 E6 single-seed cells, and 9 E6 replication rows.
+- The historical “not yet done” notes above refer to earlier cycles; all named
+  work was completed in later cycles. Remaining items are documented future
+  work, not untracked project requirements.
