@@ -50,6 +50,14 @@ RQ1-RQ4 as stated in README.md.
   — `results/metrics/e1_e2_e3_rf_prediction.csv`. 3 new passing tests
   (`tests/test_imputation.py`), including a leakage check that a fitted
   imputer uses train statistics, not test statistics.
+- **IMPLEMENTED, EXECUTED, VALIDATED**: MAR and MNAR missingness mechanisms
+  (`src/missingness.py`), each with a documented conditioning scheme over 3
+  of the 7 continuous features, 8 passing tests including a statistical
+  sanity check that the induced missingness actually correlates with its
+  documented conditioning variable (`pointbiserialr`, p<0.05). Full suite:
+  18/18 passing. All three experiment scripts generalized to loop over
+  MCAR/MAR/MNAR and rerun; MCAR results reproduced exactly, confirming
+  determinism.
 
 ## Current Dataset and Characteristics
 
@@ -85,6 +93,9 @@ leakage into any preprocessing step (master prompt section 17).
 - E3: IterativeImputer imputation, same scoring.
 - RF-after-imputation: 4 methods (mean/median/knn/iterative) x 3 MCAR
   levels (10/20/30%) = 12 runs, held-out test metrics, compared against E0.
+- MAR and MNAR missingness at 10/20/30% (3 conditioned features each), same
+  4 imputation methods, same reconstruction scoring and RF-after-imputation
+  comparison as MCAR — 24 more RF runs.
 
 ## Actual Current Results
 
@@ -120,6 +131,19 @@ statistically supported ranking; that requires the multi-seed manifest
 downstream prediction quality (F1/ROC-AUC) is worth flagging for RQ2/RQ4:
 best imputer by reconstruction error is not necessarily best for prediction.
 
+MAR and MNAR were implemented with documented conditioning schemes (see
+`docs/experiment_log.md` for the exact variables/directions) and pass a
+statistical sanity check confirming the induced missingness actually
+correlates with its conditioning variable as designed. Reconstruction MAE/
+RMSE for MAR/MNAR's 3 covered columns are broadly similar to MCAR's values
+for the same columns. **However, the RF-after-imputation numbers for MAR/
+MNAR should not yet be read as "MAR/MNAR are easier than MCAR"**: MAR/MNAR
+only mask 3 of the 7 continuous features and never touch `time` (the most
+predictive, leakage-adjacent column), while MCAR masks and re-imputes all 7
+including `time`. This confound must be resolved (mask the same column set
+across all three mechanisms) before RQ1's mechanism comparison is written
+up — see Problems/Limitations.
+
 ## GA Status
 
 Not started. Scheduled for a later cycle (master prompt phase 14+),
@@ -131,8 +155,8 @@ after the missingness/imputation framework exists.
 - `results/figures/class_distribution.png`
 - `results/figures/feature_distributions.png`
 - `results/figures/correlation_matrix.png`
-- `results/figures/missing_per_feature_mcar20.png`
-- `results/figures/missingness_heatmap_mcar20.png`
+- `results/figures/missing_per_feature_{mcar,mar,mnar}20.png`
+- `results/figures/missingness_heatmap_{mcar,mar,mnar}20.png`
 - `results/metrics/e0_complete_rf_baseline.json`
 - `results/tables/missingness_summary.csv`
 - `results/metrics/e1_mean_median_imputation.csv`
@@ -147,7 +171,11 @@ after the missingness/imputation framework exists.
   none of the method rankings above are statistically supported yet.
 - `time` column leakage-adjacency noted above needs explicit treatment in
   the final discussion/limitations section.
-- MAR/MNAR mechanisms not implemented yet — MCAR only so far.
+- **MAR/MNAR vs MCAR comparison is currently confounded**: MAR/MNAR mask
+  only 3 columns (never `time`), MCAR masks all 7 (including `time`) — so
+  MAR/MNAR's better-looking RF-after-imputation numbers reflect less
+  information destroyed, not an easier mechanism. Needs a same-column-set
+  rerun before RQ1 conclusions are drawn from this comparison.
 - Missingness/imputation currently scoped to the 7 continuous features;
   the 5 binary clinical flags are not masked (mean/median imputation is
   not a meaningful reconstruction target for a 0/1 flag) — documented in
@@ -158,10 +186,12 @@ after the missingness/imputation framework exists.
 
 ## Work in Progress
 
-None mid-flight; this cycle's scope (E2/E3 imputation + RF-after-imputation)
-is complete and committed.
+None mid-flight; this cycle's scope (MAR/MNAR mechanisms) is complete and
+committed. The MAR/MNAR-vs-MCAR confound noted above is an open item for a
+near-term cycle, not mid-flight work.
 
 ## Next Steps
 
-Phase 17-18: MAR and MNAR missingness mechanisms. Then repeated seeds
+Resolve the MAR/MNAR-vs-MCAR column-set confound (mask the same 3 columns
+under all three mechanisms for a fair comparison), then repeated seeds
 (Phase 19), feature stability, and Phase 14+: GA feature selection.

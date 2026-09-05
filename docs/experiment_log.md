@@ -58,3 +58,40 @@ Selected Heart Failure Clinical Records (UCI id 519). See
 - Added `tests/test_imputation.py` (3 tests, including a leakage check that
   a fitted imputer uses train statistics, not test statistics). Full suite:
   10/10 passing.
+
+## 2026-09-05 — MAR and MNAR mechanisms
+
+- Added `mask_mar`/`mask_mnar` to `src/missingness.py`, both reusing a new
+  `_weighted_missing_indices` helper (rank-weighted sampling without
+  replacement, so missingness probability is a mild monotonic gradient, not
+  a deterministic cutoff). Each mechanism covers 3 of the 7 continuous
+  features (documented conditioning schemes for each, see module docstring):
+  - MAR: `serum_creatinine` ~ `age` (high), `ejection_fraction` ~ `time`
+    (low), `serum_sodium` ~ `creatinine_phosphokinase` (high).
+  - MNAR: `ejection_fraction` (low), `serum_creatinine` (high),
+    `serum_sodium` (low) — each conditioned on its own value.
+- Added 8 tests confirming target/protected columns are never masked,
+  ground truth is recoverable, actual-vs-requested missingness is close,
+  and — the substantive check — that induced missingness actually
+  correlates with the documented conditioning variable in the documented
+  direction (`pointbiserialr`, p < 0.05 for every key column). Full suite:
+  18/18 passing.
+- Generalized `experiments/run_missingness.py`, `run_imputation.py`, and
+  `run_prediction.py` to loop over MCAR/MAR/MNAR (previously MCAR-only).
+  Reran all three: MCAR realized percentages reproduced exactly
+  (10.04/20.08/30.13, confirming determinism), MAR/MNAR realized ~10.04/
+  20.08/30.13 on their 3 columns. E1/E2/E3 reconstruction metrics and the
+  RF-after-imputation comparison now include all 3 mechanisms —
+  `results/metrics/e1_mean_median_imputation.csv`, `e2_knn_imputation.csv`,
+  `e3_iterative_imputation.csv`, `e1_e2_e3_rf_prediction.csv`.
+- **Confound identified and flagged (not fixed this cycle)**: MAR/MNAR
+  downstream RF metrics come out *better* than both MCAR and even the E0
+  complete-data baseline (e.g. MNAR 10% mean-imputed: Acc 0.850/F1 0.743 vs
+  E0's 0.817/0.667). This is not evidence MAR/MNAR are "easier" — it is
+  because MAR/MNAR only mask 3 of the 7 continuous features, and critically
+  never mask `time`, the single most predictive (leakage-adjacent) column,
+  whereas MCAR masks and re-imputes all 7 including `time`. The mechanisms
+  are therefore not being compared on equal footing. A fair mechanism
+  comparison requires masking the *same* column set under MCAR/MAR/MNAR —
+  logged as a required fix before RQ1 analysis relies on this comparison
+  (see Problems/Limitations in progress_report.md).
