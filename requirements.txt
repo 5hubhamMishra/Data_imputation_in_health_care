@@ -11,3 +11,8 @@ pytest==9.1.1
 nbformat==5.10.4
 nbclient==0.11.0
 ipykernel==7.3.0
+
+# Only needed to regenerate reports/RP_Progress_Report.pdf
+# (scripts/generate_progress_report_pdf.py); not required for any experiment.
+xhtml2pdf==0.2.18
+markdown==3.10.3

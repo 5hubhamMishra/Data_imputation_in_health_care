@@ -567,12 +567,39 @@ the underlying phase work being complete:
   content already present in `docs/final_report.md` and
   `report_data/results_summary.md` — no new claim introduced.
 
+## Supervisor PDF Export (Phase 42)
+
+Master prompt section 42 ("Automatic Supervisor Report Export") calls for a
+supervisor-ready PDF at `reports/RP_Progress_Report.pdf` "when the
+environment has a reliable PDF generation path" — this had not been
+attempted, and no blocker had been recorded either way. A reliable path is
+now available (`xhtml2pdf`, pure-Python, no system dependencies), so the PDF
+was generated rather than deferred:
+
+- `scripts/generate_progress_report_pdf.py` renders `docs/supervisor_progress_summary.md`
+  (the concise, faculty-facing source, per section 42's "readable without
+  inspecting source code, only verified progress") to HTML via the
+  `markdown` library, appends the four-way comparison and GA feature
+  frequency tables read directly from their existing CSVs, embeds the
+  corresponding two existing figures, and converts the result to PDF with
+  `xhtml2pdf`. No number or claim in the PDF was computed or altered by this
+  script — every value is a direct read from an already-validated file.
+- Output: `reports/RP_Progress_Report.pdf`, 3 pages. Verified with `pypdf`
+  text extraction on every page to confirm no encoding glitches (the only
+  non-ASCII characters produced are ordinary markdown bullet points,
+  correctly encoded as U+2022).
+- `xhtml2pdf` and `markdown` added to `requirements.txt`, noted as
+  report-export-only dependencies, not required for any experiment.
+- Regenerate anytime with `python scripts/generate_progress_report_pdf.py`
+  after `docs/supervisor_progress_summary.md` is next updated.
+
 ## Next Steps
 
-All 32 phases of the master prompt's plan are complete, and the three
-previously-missing named deliverables above are now in place. The only
-remaining item is explicitly-documented optional future work, not an
-unmet requirement: full 9-cell/5-seed E6 (GA+imputation) coverage beyond
-the current 3-cell/3-seed subset, which already shows a consistent
-(non-)pattern and is disclosed as a compute-budget limitation in
-`docs/final_report.md`.
+All 32 phases of the master prompt's plan are complete, and every
+previously-missing named deliverable (the experiment manifest, the two
+standalone docs, the three analysis notebooks, and the supervisor PDF
+export) is now in place. The only remaining item is explicitly-documented
+optional future work, not an unmet requirement: full 9-cell/5-seed E6
+(GA+imputation) coverage beyond the current 3-cell/3-seed subset, which
+already shows a consistent (non-)pattern and is disclosed as a
+compute-budget limitation in `docs/final_report.md`.
