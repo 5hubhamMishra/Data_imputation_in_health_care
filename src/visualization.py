@@ -41,6 +41,29 @@ def plot_correlation_matrix(df):
     plt.close(fig)
 
 
+def plot_missing_per_feature(masked_df, filename, title):
+    counts = masked_df.isna().sum().sort_values(ascending=False)
+    counts = counts[counts > 0]
+    fig, ax = plt.subplots(figsize=(6, 4))
+    counts.plot(kind="bar", ax=ax, color="#C44E52")
+    ax.set_ylabel("Missing count")
+    ax.set_title(title)
+    fig.tight_layout()
+    fig.savefig(FIGURES_DIR / filename, dpi=200)
+    plt.close(fig)
+
+
+def plot_missingness_heatmap(masked_df, filename, title):
+    fig, ax = plt.subplots(figsize=(10, 6))
+    sns.heatmap(masked_df.isna(), cbar=False, cmap=["#EAEAF2", "#C44E52"], ax=ax)
+    ax.set_title(title)
+    ax.set_xlabel("Feature")
+    ax.set_ylabel("Training-set row")
+    fig.tight_layout()
+    fig.savefig(FIGURES_DIR / filename, dpi=200)
+    plt.close(fig)
+
+
 if __name__ == "__main__":
     from src.data_loader import load_raw_data
 

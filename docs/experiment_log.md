@@ -21,3 +21,15 @@ Selected Heart Failure Clinical Records (UCI id 519). See
   correlation matrix.
 - Ran E0 complete-data RF baseline (seed 42): Accuracy 0.817, F1 0.667,
   ROC-AUC 0.883. Result: `results/metrics/e0_complete_rf_baseline.json`.
+
+## 2026-09-05 — Missingness framework + mean/median imputation
+
+- Added `src/missingness.py` (MCAR masking, ground truth preserved),
+  4 passing tests (`tests/test_missingness.py`).
+- Ran MCAR masking at 10/20/30% on the training split (seed 42), realized
+  10.04/20.08/30.13%. Masked data + ground truth in `data/processed/`,
+  summary in `results/tables/missingness_summary.csv`.
+- Generated missing-per-feature and missingness-heatmap figures for MCAR
+  20% (representative level).
+- Added `src/imputation.py` (mean, median), ran E1 imputation experiment,
+  MAE/RMSE per feature/level in `results/metrics/e1_mean_median_imputation.csv`.

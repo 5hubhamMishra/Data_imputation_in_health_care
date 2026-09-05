@@ -31,6 +31,14 @@ RQ1-RQ4 as stated in README.md.
   feature distributions, correlation matrix) — `results/figures/`.
 - **IMPLEMENTED, EXECUTED, VALIDATED**: E0 complete-data Random Forest
   baseline — `results/metrics/e0_complete_rf_baseline.json`.
+- **IMPLEMENTED, EXECUTED, VALIDATED**: MCAR missingness framework
+  (`src/missingness.py`) at 10/20/30% on the training split only, ground
+  truth preserved for intentionally hidden cells, 4 passing tests
+  (`tests/test_missingness.py`). Scoped to the 7 continuous features
+  (excludes the 5 binary clinical flags — see `src/config.py`).
+- **IMPLEMENTED, EXECUTED, VALIDATED**: Mean/median imputation
+  (`src/imputation.py`), scored by MAE/RMSE per feature/mechanism/level
+  against preserved ground truth only — `results/metrics/e1_mean_median_imputation.csv`.
 
 ## Current Dataset and Characteristics
 
@@ -57,6 +65,8 @@ required before Phase 8 (missingness framework).
 ## Experiments Completed
 
 - E0: Complete-data RF baseline (1 run, seed 42).
+- Missingness framework: MCAR at 10/20/30% on the training split (seed 42).
+- E1: Mean and median imputation on each MCAR level, scored on hidden cells.
 
 ## Actual Current Results
 
@@ -65,6 +75,19 @@ E0 (seed 42, held-out test, n=60): Accuracy 0.817, Precision 0.786, Recall
 `results/metrics/e0_complete_rf_baseline.json`. These numbers are a single
 seed and will be extended with the multi-seed manifest in a later phase —
 not yet a final claim about model quality.
+
+MCAR realized missingness (training split, n=239): 10.04%, 20.08%, 30.13%
+per continuous feature (identical across features by construction — same
+row count masked per column). Requested-vs-actual is close throughout; see
+`results/tables/missingness_summary.csv`.
+
+E1 mean/median imputation MAE/RMSE (per-feature detail in
+`results/metrics/e1_mean_median_imputation.csv`; scale varies hugely by
+feature, e.g. platelets is O(10^4) vs serum_creatinine is O(1), so a single
+cross-feature average is not analytically meaningful — per-feature values
+are the reportable artifact). Mean and median perform similarly at every
+level, as expected for this dataset. No RF-after-imputation run yet — that
+is Phase 13, not in scope this cycle.
 
 ## GA Status
 
@@ -77,7 +100,11 @@ after the missingness/imputation framework exists.
 - `results/figures/class_distribution.png`
 - `results/figures/feature_distributions.png`
 - `results/figures/correlation_matrix.png`
+- `results/figures/missing_per_feature_mcar20.png`
+- `results/figures/missingness_heatmap_mcar20.png`
 - `results/metrics/e0_complete_rf_baseline.json`
+- `results/tables/missingness_summary.csv`
+- `results/metrics/e1_mean_median_imputation.csv`
 
 ## Problems/Limitations
 
@@ -85,13 +112,18 @@ after the missingness/imputation framework exists.
   experiment manifest (later phase).
 - `time` column leakage-adjacency noted above needs explicit treatment in
   the final discussion/limitations section.
+- MAR/MNAR mechanisms not implemented yet — MCAR only this cycle.
+- Missingness/imputation currently scoped to the 7 continuous features;
+  the 5 binary clinical flags are not masked (mean/median imputation is
+  not a meaningful reconstruction target for a 0/1 flag) — documented in
+  `src/config.py`, revisit if KNN/ML imputation later needs them.
 
 ## Work in Progress
 
-None mid-flight; this cycle's scope (acquisition, preprocessing, EDA,
-baseline start) is complete and committed.
+None mid-flight; this cycle's scope (missingness framework + mean/median
+imputation) is complete and committed.
 
 ## Next Steps
 
-Phase 8: missingness framework (MCAR/MAR/MNAR at 10/20/30%), then
-Phase 9-13 (mean/median/KNN/ML imputation + RF after imputation).
+Phase 11-13: KNN imputation, ML-based imputation (IterativeImputer or
+similar), RF after imputation. Then Phase 14+: GA feature selection.
