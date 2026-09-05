@@ -421,11 +421,48 @@ None mid-flight; literature review (section 35-36) and RQ1-RQ4 analysis
 - Reran `pytest`: 24/24 passing, unchanged.
 - No fixes were needed; nothing regenerated.
 
+## Final Experiment Audit (Phase 28)
+
+- Enumerated every phase in the 32-phase plan (E0; MCAR/MAR/MNAR at
+  10/20/30%; E1-E3 reconstruction and RF-after-imputation; repeated-seed
+  E0/E1; E5 GA on complete data; E6 imputation+GA; full 180-run multiseed
+  E1-E3 matrix; 27 paired statistical tests; GA multiseed subset; 15-ref
+  literature review; RQ1-RQ4 analysis) — every corresponding output file
+  exists and is non-empty.
+- Spot-checked actual values, not just presence: `results/tables/
+  statistical_tests.csv` has exactly 27 rows (9 imputer-vs-imputer, 9
+  mechanism-vs-mechanism, 9 missingness-cost), all imputer/mechanism
+  p-values > 0.05, and missingness-cost p<0.05 at exactly the 4 documented
+  cells (MCAR 10% p=0.0175, MCAR 20% p=0.0119, MNAR 20% p=0.0083, MNAR 30%
+  p=0.0236) — matches `docs/statistical_analysis.md` and
+  `docs/progress_report.md` exactly, no discrepancy.
+- Leakage discipline re-verified by reading current code (not just tests):
+  `train_test_split_stratified` (`src/preprocessing.py`) is the only split
+  point and runs before any imputer/selector; `run_ga`/`_fitness`
+  (`src/genetic_selection.py`) take only `X_train`/`y_train` — no test-set
+  parameter exists in the module, so GA cannot see test data by
+  construction. Matches what was previously documented.
+- Determinism check: reran `experiments/run_baselines.py` (E0, seed 42)
+  fresh — reproduced the recorded metrics exactly (Accuracy 0.8167,
+  Precision 0.7857, Recall 0.5789, F1 0.6667, ROC-AUC 0.8825, CV F1 0.7683
+  +/- 0.0820). Only the incidental `runtime_seconds` field differed
+  (wall-clock, not a result); that diff was discarded, not committed.
+- Full test suite: 24/24 passing, matches the documented count.
+- Deferred scope confirmed intentional, not an oversight: the full 9-cell/
+  5-seed E6 (GA+imputation) matrix remains a 3-cell/3-seed subset by
+  documented compute-budget decision (see "Problems/Limitations" above);
+  this audit does not reopen that scope.
+- **Result: no discrepancies found. Ready to proceed** to the
+  report_data/ package (section 43) and final academic report draft
+  (section 31).
+
 ## Next Steps
 
-Required tables/figures consolidation (section 37 — most already exist,
-check for gaps), final experiment audit (section 47), the report_data/
-package (section 43), and the final academic report draft. Full 9-cell/
-5-seed E6 (GA+imputation) coverage beyond the current 3-cell/3-seed subset
-remains optional/lower-priority given the subset already shows a
-consistent (non-)pattern.
+Required tables/figures consolidation (section 37 — already completed
+above, phase 24-25) and final experiment audit (already completed above,
+phase 28) are both done. Remaining: the report_data/ package (section 43),
+the final academic report draft (section 31), and the final
+reproducibility/repository audit (section 32). Full 9-cell/5-seed E6
+(GA+imputation) coverage beyond the current 3-cell/3-seed subset remains
+optional/lower-priority given the subset already shows a consistent
+(non-)pattern.
