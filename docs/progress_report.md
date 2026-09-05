@@ -483,12 +483,40 @@ None mid-flight; literature review (section 35-36) and RQ1-RQ4 analysis
 - No experiments were rerun or regenerated for this phase; it is pure
   curation of existing validated outputs.
 
+## Final Academic Report Draft (Phase 31)
+
+- Wrote `docs/final_report.md`, following the exact section structure
+  specified in master prompt section 43 (Final Report Package): Abstract,
+  Introduction, Background, Problem Statement, Objectives, Research
+  Questions, Literature Review, Dataset, Preprocessing, Missing-Data
+  Mechanisms, Methodology, Imputation Methods, GA Feature Selection, Random
+  Forest, Experimental Setup, Metrics, Results, Statistical Analysis,
+  Discussion, Existing-Work Comparison, Limitations, Future Work,
+  Conclusion, References.
+- Every number in the draft was drawn directly from `report_data/` (and,
+  where more precision was useful, the underlying `results/` files) — no
+  value was invented, rounded favorably, or "cleaned up." The draft
+  preserves the project's established honest-reporting stance throughout:
+  missingness significantly hurts prediction (4/9 tests), no imputer or
+  mechanism is statistically distinguishable at n=5 seeds (0/18 tests), GA
+  gives a stable/clinically-plausible feature subset but not a replicated
+  accuracy gain, and the `time` column's leakage-adjacency is flagged
+  explicitly rather than presented as a clinical finding.
+- Divergence from Kumar & Sahoo (2017)'s favorable GA result is discussed
+  directly in the Existing-Work Comparison section, not omitted.
+- Noted, not fixed (out of this phase's scope): `docs/supervisor_progress_summary.md`,
+  called for by master prompt section 41, does not yet exist in `docs/` —
+  flagged here for a future phase, not fabricated as part of this one.
+- Reran `pytest`: 24/24 passing, unchanged (this phase touched only
+  documentation).
+
 ## Next Steps
 
 Required tables/figures consolidation (section 37), final experiment audit
-(section 28), and the report_data/ package (section 43) are all done.
-Remaining: the final academic report draft (section 31), and the final
-reproducibility/repository audit (section 32). Full 9-cell/5-seed E6
-(GA+imputation) coverage beyond the current 3-cell/3-seed subset remains
-optional/lower-priority given the subset already shows a consistent
-(non-)pattern.
+(section 28), the report_data/ package (section 43), and the final academic
+report draft (section 31) are all done. Remaining: the final
+reproducibility/repository audit (section 32), and (noted above, not yet
+started) `docs/supervisor_progress_summary.md` per section 41. Full
+9-cell/5-seed E6 (GA+imputation) coverage beyond the current 3-cell/3-seed
+subset remains optional/lower-priority given the subset already shows a
+consistent (non-)pattern.
