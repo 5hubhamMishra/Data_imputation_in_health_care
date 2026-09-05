@@ -510,13 +510,47 @@ None mid-flight; literature review (section 35-36) and RQ1-RQ4 analysis
 - Reran `pytest`: 24/24 passing, unchanged (this phase touched only
   documentation).
 
+## Supervisor Progress Summary (Phase 41)
+
+`docs/supervisor_progress_summary.md` written: a shorter, faculty-facing
+status summary (completion status, work completed, defensible findings,
+remaining limitations, deliverables list) sourced only from
+`docs/progress_report.md` and `docs/final_report.md` — no new claims.
+
+## Final Reproducibility & Repository Audit (Phase 32)
+
+- Repository structure, `.gitignore`, dataset provenance/checksum, and
+  remote (`origin` → the project's GitHub repo) all verified present and
+  correct; matches what `README.md` describes.
+- Coverage re-verified: 180/180 E1-E3 multiseed rows, 27/27 statistical
+  tests, 5/5 GA seeds, 9/9 E6 single-seed cells (3/9 with 3-seed
+  replication), 15/15 literature entries.
+- `README.md` corrected: stale "dataset not yet selected" status line and
+  placeholder `run_all.py` instructions replaced with the actual completion
+  status and the real, individually-runnable experiment module commands in
+  dependency order.
+- Absolute-local-path scan (`src/`, `experiments/`, `docs/`) for anything
+  that would break on another machine: none found.
+- `requirements.txt` cross-checked against every third-party import
+  actually used in `src/`/`experiments/`/`tests/` (numpy, pandas,
+  scikit-learn, matplotlib, seaborn, scipy, pytest): complete, nothing
+  missing.
+- Test suite rerun for this closing audit (`python -m pytest -q`): 24/24
+  passing. (A prior pass of this same audit recorded, incorrectly, that no
+  Python interpreter was available in-session and skipped the rerun —
+  corrected here and in `docs/reproducibility_audit.md`; the interpreter
+  and pytest are present and the suite passes.)
+- **Result: no repository-hygiene or reproducibility issues found. All 32
+  phases of the master prompt's execution plan are now complete.**
+
 ## Next Steps
 
-Required tables/figures consolidation (section 37), final experiment audit
-(section 28), the report_data/ package (section 43), and the final academic
-report draft (section 31) are all done. Remaining: the final
-reproducibility/repository audit (section 32), and (noted above, not yet
-started) `docs/supervisor_progress_summary.md` per section 41. Full
-9-cell/5-seed E6 (GA+imputation) coverage beyond the current 3-cell/3-seed
-subset remains optional/lower-priority given the subset already shows a
-consistent (non-)pattern.
+All 32 phases of the master prompt's plan are complete: tables/figures
+consolidation (37), final experiment audit (28), the report_data/ package
+(43), the final academic report draft (31), the supervisor progress summary
+(41), and the final reproducibility/repository audit (32). The only
+remaining item is explicitly-documented optional future work, not an
+unmet requirement: full 9-cell/5-seed E6 (GA+imputation) coverage beyond
+the current 3-cell/3-seed subset, which already shows a consistent
+(non-)pattern and is disclosed as a compute-budget limitation in
+`docs/final_report.md`.

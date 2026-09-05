@@ -27,9 +27,12 @@ Date: 2026-09-05
 The final experiment audit recorded 24/24 tests passing, reproduced the seed-42
 E0 metrics, confirmed train-only fitting for imputers and GA fitness, checked
 referenced result files, and verified that the four significant missingness-
-cost p-values match the report. The current environment does not provide a
-Python interpreter or `pytest` executable, so the suite was not rerun in this
-session; the recorded validation is the repository's latest execution evidence.
+cost p-values match the report. Rerun again for this closing audit
+(`python -m pytest -q`): 24/24 passing, unchanged. A scan of `src/`,
+`experiments/`, and `docs/` for hardcoded local machine paths and of
+`requirements.txt` against every third-party import used in the codebase
+(`numpy`, `pandas`, `scikit-learn`, `matplotlib`, `seaborn`, `scipy`, `pytest`)
+found no absolute paths and no missing dependency.
 
 ## Intentional scope decisions
 
