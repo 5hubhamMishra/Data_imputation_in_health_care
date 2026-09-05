@@ -14,9 +14,11 @@ def split_features_target(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series]:
     return X, y
 
 
-def train_test_split_stratified(df: pd.DataFrame):
-    """80/20 stratified split on the target, fixed seed for reproducibility."""
+def train_test_split_stratified(df: pd.DataFrame, seed: int = RANDOM_SEED):
+    """80/20 stratified split on the target. `seed` defaults to the project
+    seed but is overridable for repeated-seed experiments (master prompt
+    section 29)."""
     X, y = split_features_target(df)
     return train_test_split(
-        X, y, test_size=TEST_SIZE, stratify=y, random_state=RANDOM_SEED
+        X, y, test_size=TEST_SIZE, stratify=y, random_state=seed
     )

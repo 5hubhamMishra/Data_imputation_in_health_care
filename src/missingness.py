@@ -6,11 +6,14 @@ computed exactly on the intentionally hidden cells later (master prompt
 section 19). Masking must be applied to the training split only, never
 before the train/test split (section 17's leakage-prevention flow).
 
-MCAR, MAR, and MNAR are all implemented. MAR/MNAR only cover 3 of the 7
-continuous features each (master prompt section 20 asks for a documented
-conditioning scheme per affected feature, not blanket coverage) — the same
-3 target columns are reused across both mechanisms so their effect on
-reconstruction/prediction is directly comparable to each other and to MCAR.
+MCAR, MAR, and MNAR all mask the same 7 continuous columns (CONTINUOUS_
+FEATURES). Column-set parity across mechanisms is deliberate: an earlier
+version of MAR/MNAR covered only 3 of the 7 columns and never masked `time`
+(the single most predictive feature), which made MAR/MNAR's downstream RF
+metrics look artificially better than MCAR/E0 — a column-coverage artifact,
+not a real mechanism effect. Each column still gets its own documented,
+individually-defensible conditioning rule (master prompt section 20 asks for
+an explicit conditioning rationale, not blanket unexplained coverage).
 """
 
 from __future__ import annotations
@@ -34,10 +37,30 @@ MISSINGNESS_LEVELS = (0.10, 0.20, 0.30)
 #                       an acute cardiac/muscle injury (urgent presentation)
 #                       where a full electrolyte panel is more likely to be
 #                       deprioritized or missing.
+#   age               ~ serum_creatinine (high): a patient presenting in
+#                       acute kidney injury is triaged urgently, and routine
+#                       demographic intake (precise age charting) is
+#                       deprioritized relative to acute management.
+#   creatinine_phosphokinase ~ ejection_fraction (low): a severely reduced
+#                       ejection fraction fast-tracks the patient to
+#                       cardiology intervention, delaying the CPK panel
+#                       draw/entry.
+#   platelets         ~ age (high): older patients have more fragmented
+#                       cross-department care coordination, raising the
+#                       chance a CBC/platelet panel isn't transcribed into
+#                       the primary record.
+#   time              ~ serum_sodium (low): severe hyponatremia signals
+#                       acute instability; patients who deteriorate or are
+#                       transferred quickly leave incomplete follow-up-
+#                       duration documentation.
 MAR_CONDITIONING = {
     "serum_creatinine": ("age", "high"),
     "ejection_fraction": ("time", "low"),
     "serum_sodium": ("creatinine_phosphokinase", "high"),
+    "age": ("serum_creatinine", "high"),
+    "creatinine_phosphokinase": ("ejection_fraction", "low"),
+    "platelets": ("age", "high"),
+    "time": ("serum_sodium", "low"),
 }
 
 # MNAR: missingness probability in a column depends on that column's own
@@ -52,10 +75,26 @@ MAR_CONDITIONING = {
 #   serum_sodium low:       severe hyponatremia readings are more often
 #                     flagged for a repeat test, with the original entry
 #                     sometimes left unrecorded.
+#   age high:         very elderly patients more often have inconsistent or
+#                     legacy-record birthdates, raising the chance the
+#                     charted age field itself is left blank.
+#   creatinine_phosphokinase high: an extreme CPK reading (severe myocardial/
+#                     muscle injury) triggers urgent intervention that
+#                     deprioritizes lab-result transcription.
+#   platelets low:    a critically low platelet count is often flagged for
+#                     repeat/redraw confirmation, leaving the original entry
+#                     unrecorded.
+#   time low:         a very short observation window (early death or
+#                     dropout) closes before follow-up documentation is
+#                     completed.
 MNAR_CONDITIONING = {
     "ejection_fraction": "low",
     "serum_creatinine": "high",
     "serum_sodium": "low",
+    "age": "high",
+    "creatinine_phosphokinase": "high",
+    "platelets": "low",
+    "time": "low",
 }
 
 

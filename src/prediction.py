@@ -18,13 +18,15 @@ from src.config import RANDOM_SEED
 RF_PARAMS = {"n_estimators": 200, "random_state": RANDOM_SEED}
 
 
-def train_evaluate_rf(X_train, y_train, X_test, y_test) -> dict:
+def train_evaluate_rf(X_train, y_train, X_test, y_test, seed: int = RANDOM_SEED) -> dict:
     """Fit an RF on the training split (5-fold stratified CV for a
     training-side F1 estimate) and score once on the held-out test split.
-    Test data must never influence model selection (section 23)."""
-    model = RandomForestClassifier(**RF_PARAMS)
+    Test data must never influence model selection (section 23). `seed`
+    defaults to the project seed but is overridable for repeated-seed
+    experiments (master prompt section 29)."""
+    model = RandomForestClassifier(**{**RF_PARAMS, "random_state": seed})
 
-    cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=RANDOM_SEED)
+    cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=seed)
     cv_f1_scores = cross_val_score(model, X_train, y_train, cv=cv, scoring="f1")
 
     start = time.perf_counter()

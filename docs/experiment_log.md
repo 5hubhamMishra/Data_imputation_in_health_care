@@ -95,3 +95,46 @@ Selected Heart Failure Clinical Records (UCI id 519). See
   comparison requires masking the *same* column set under MCAR/MAR/MNAR —
   logged as a required fix before RQ1 analysis relies on this comparison
   (see Problems/Limitations in progress_report.md).
+
+## Cycle: Confound fix + repeated seeds (commit TBD)
+
+- **Fixed the column-set confound**: extended `MAR_CONDITIONING` and
+  `MNAR_CONDITIONING` (`src/missingness.py`) from 3 to all 7 continuous
+  columns. New conditioning rules added:
+  - MAR: `age` ~ `serum_creatinine` (high), `creatinine_phosphokinase` ~
+    `ejection_fraction` (low), `platelets` ~ `age` (high), `time` ~
+    `serum_sodium` (low).
+  - MNAR: `age` (high), `creatinine_phosphokinase` (high), `platelets`
+    (low), `time` (low) — each conditioned on its own value.
+  - Every new rule ships with a documented clinical rationale (see
+    docstring comments in `src/missingness.py`); no self-referential MAR
+    conditioning (a column never conditions on itself).
+  - Full test suite (18 tests, sanity checks now spanning 7 columns per
+    mechanism instead of 3) still passes.
+  - Reran `run_missingness.py`, `run_imputation.py`, `run_prediction.py`.
+    MCAR realized percentages reproduced exactly (10.04/20.08/30.13,
+    confirming determinism); MAR/MNAR now realize the identical
+    percentages on all 7 columns, matching MCAR's column coverage exactly.
+- **Confound fix did not fully resolve the MAR-vs-MCAR gap**: after the
+  fix, MAR still shows higher RF-after-imputation metrics than MCAR/E0 at
+  several levels (e.g. MAR 30% + KNN: F1 0.833, ROC-AUC 0.933). Investigated
+  via repeated seeds rather than assumed away.
+- **Added `experiments/run_repeated_seeds.py`** (master prompt phase 19).
+  Threaded `seed` as an overridable parameter through
+  `train_test_split_stratified` (`src/preprocessing.py`) and
+  `train_evaluate_rf` (`src/prediction.py`), both defaulting to the
+  existing project seed (42) so no prior single-seed result changes —
+  verified by rerunning `run_baselines.py` with the default seed and
+  reproducing E0's original numbers exactly (Acc 0.8167/F1 0.6667/ROC-AUC
+  0.8825).
+  - E0 across 5 seeds (42/123/2026/7/99): F1 ranges from 0.667 (seed 42) to
+    0.857 (seed 123) — std 0.081. Full per-seed table:
+    `results/metrics/repeated_seeds_e0.csv`.
+  - E1 mean-imputation @ MCAR 20% across the same 5 seeds: F1 std 0.118.
+    `results/metrics/repeated_seeds_e1_mcar20.csv`.
+  - **Conclusion**: the single-seed MAR-vs-MCAR gap (a few hundredths to
+    ~0.17 in F1 depending on level) is within the range of pure seed noise
+    observed for E0 alone. The mechanism-comparison question (RQ1) is not
+    resolvable from single-seed data on this dataset's 60-row test set —
+    it needs the full multi-seed manifest and a paired statistical test
+    (sections 29, 33), not a further tweak to the masking scheme.
