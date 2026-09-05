@@ -1,0 +1,688 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R 19 0 R 21 0 R 23 0 R 25 0 R 27 0 R] /Count 11 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+6 0 obj
+<< /Length 1571 >>
+stream
+BT 0.08 0.25 0.45 rg /F2 16 Tf 1 0 0 1 54.0 -8.0 Tm (Healthcare Data Imputation) Tj ET
+BT 0.16 0.34 0.52 rg /F2 12 Tf 1 0 0 1 54.0 -33.0 Tm (Using Machine Learning with Genetic Algorithm-Based Feature Selection) Tj ET
+0.72 0.78 0.84 RG 0.6 w 54 -44 m 541.28 -44 l S
+BT 0.16 0.34 0.52 rg /F2 13 Tf 1 0 0 1 54.0 -63.0 Tm (Final Research Report) Tj ET
+BT 0.12 0.16 0.22 rg /F1 10.5 Tf 1 0 0 1 54.0 -76.0 Tm (Heart Failure Clinical Records Dataset | UCI Machine Learning Repository) Tj ET
+BT 0.12 0.16 0.22 rg /F1 10 Tf 1 0 0 1 54.0 -89.0 Tm (Prepared for academic review | 5 September 2026) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 -102.0 Tm () Tj ET
+BT 0.16 0.34 0.52 rg /F2 12 Tf 1 0 0 1 54.0 -131.0 Tm (Executive result) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 -147.0 Tm (Missingness itself measurably reduced downstream prediction performance in 4) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 -160.0 Tm (of 9 complete-data comparisons. No imputation method or missingness mechanism) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 -173.0 Tm (was statistically distinguishable at five seeds. Genetic Algorithm selection) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 -186.0 Tm (produced a stable, clinically plausible reduced feature set, but did not) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 -199.0 Tm (reliably improve prediction after replication.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 -212.0 Tm () Tj ET
+BT 0.35 0.40 0.46 rg /F1 9 Tf 1 0 0 1 54.0 -232.0 Tm (Repository: Data_imputation_in_health_care) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 6 0 R >>
+endobj
+8 0 obj
+<< /Length 7266 >>
+stream
+BT 0.32 0.42 0.55 rg /F2 7.5 Tf 1 0 0 1 54.0 810.0 Tm (HEALTHCARE DATA IMPUTATION | FINAL RESEARCH REPORT) Tj ET
+0.72 0.78 0.84 RG 0.6 w 54 800 m 541.28 800 l S
+BT 0.08 0.25 0.45 rg /F2 16 Tf 1 0 0 1 54.0 762.0 Tm (Abstract) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 742.0 Tm (Missing data is a persistent obstacle in healthcare machine learning, where clinical records are) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 729.0 Tm (frequently incomplete due to irregular data collection, patient dropout, or measurement cost. This) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 716.0 Tm (project investigates how missing data affects downstream prediction performance on a clinical dataset,) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 703.0 Tm (compares four imputation methods \(mean, median, k-nearest neighbours, and an iterative multivariate) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 690.0 Tm (imputer\), and evaluates whether Genetic Algorithm \(GA\)-based feature selection improves Random Forest) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 677.0 Tm (prediction after imputation. Using the Heart Failure Clinical Records dataset \(UCI, 299 patients, 12) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 664.0 Tm (features, target DEATH_EVENT\), missingness was simulated under three mechanisms - Missing Completely) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 651.0 Tm (at Random \(MCAR\), Missing at Random \(MAR\), and Missing Not at Random \(MNAR\) - at 10%, 20%, and 30%) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 638.0 Tm (rates, with ground truth preserved for every intentionally masked cell. Across a 180-run multi-seed) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 625.0 Tm (matrix \(3 mechanisms x 3 levels x 4 imputers x 5 seeds\) and 27 paired statistical tests, missingness) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 612.0 Tm (itself was found to significantly reduce prediction performance relative to complete data in 4 of 9) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 599.0 Tm (complete-vs-imputed comparisons \(p < 0.05\), while no imputation method or missingness mechanism was) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 586.0 Tm (statistically distinguishable from any other at this sample size \(0 of 18 comparisons significant\). GA) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 573.0 Tm (feature selection reliably and reproducibly selected a small, clinically plausible feature subset) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 560.0 Tm (\(time, ejection_fraction chosen in 5 of 5 independent runs\) but did not reliably improve prediction) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 547.0 Tm (accuracy once replicated across multiple seeds. These results are reported without adjustment to) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 534.0 Tm (favour any predetermined conclusion: the project's central, statistically defensible finding is that) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 521.0 Tm (the presence of missing data matters more than the specific mechanism or imputation method used to) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 508.0 Tm (address it, and that GA's genuine contribution on this dataset is principled feature reduction rather) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 495.0 Tm (than an accuracy gain.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 482.0 Tm () Tj ET
+BT 0.08 0.25 0.45 rg /F2 16 Tf 1 0 0 1 54.0 470.0 Tm (1. Introduction) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 450.0 Tm (Electronic health records and clinical study datasets are rarely complete. Values go unrecorded) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 437.0 Tm (because a test was not ordered, a patient missed a follow-up visit, or a field was left blank during) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 424.0 Tm (data entry. How a predictive model handles this missingness - whether through discarding incomplete) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 411.0 Tm (records, imputing plausible replacement values, or restricting itself to a robust subset of features -) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 398.0 Tm (directly affects the reliability of any downstream clinical decision-support tool. This project) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 385.0 Tm (studies that problem empirically on a single, well-characterised clinical dataset, using a controlled) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 372.0 Tm (experimental design in which missingness is deliberately introduced so that the true values remain) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 359.0 Tm (known and imputation error can be measured directly, rather than relying on a dataset's uncontrolled,) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 346.0 Tm (unverifiable natural missingness.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 333.0 Tm () Tj ET
+BT 0.08 0.25 0.45 rg /F2 16 Tf 1 0 0 1 54.0 321.0 Tm (2. Background) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 301.0 Tm (Three formal mechanisms describe how data can go missing \(Rubin, 1976\). Missing Completely at Random) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 288.0 Tm (\(MCAR\) means the probability of a value being missing is unrelated to any observed or unobserved) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 275.0 Tm (variable. Missing at Random \(MAR\) means the probability of missingness depends on other observed) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 262.0 Tm (variables. Missing Not at Random \(MNAR\) means the probability of missingness depends on the) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 249.0 Tm (\(unobserved\) value itself. These mechanisms have different practical implications: simple imputation) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 236.0 Tm (methods that assume MCAR can introduce bias when the true mechanism is MAR or MNAR. Classical) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 223.0 Tm (imputation approaches range from simple univariate statistics \(mean/median substitution\) to) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 210.0 Tm (similarity-based methods \(k-nearest neighbours\) to fully multivariate, iterative approaches such as) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 197.0 Tm (MICE \(van Buuren & Groothuis-Oudshoorn, 2011\) and MissForest \(Stekhoven & Buhlmann, 2012\). Feature) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 184.0 Tm (selection via Genetic Algorithms has a long history in applied machine learning \(Leardi, Boggia, &) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 171.0 Tm (Terrile, 1992\) as a population-based wrapper method that can search a combinatorial feature space more) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 158.0 Tm (effectively than exhaustive or greedy approaches, at the cost of a stochastic, CV-fitness-driven) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 145.0 Tm (search that can overfit small training sets.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 132.0 Tm () Tj ET
+BT 0.38 0.43 0.49 rg /F1 7.5 Tf 1 0 0 1 487.3 34.0 Tm (Page 1 of 10) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 8 0 R >>
+endobj
+10 0 obj
+<< /Length 6936 >>
+stream
+BT 0.32 0.42 0.55 rg /F2 7.5 Tf 1 0 0 1 54.0 810.0 Tm (HEALTHCARE DATA IMPUTATION | FINAL RESEARCH REPORT) Tj ET
+0.72 0.78 0.84 RG 0.6 w 54 800 m 541.28 800 l S
+BT 0.08 0.25 0.45 rg /F2 16 Tf 1 0 0 1 54.0 762.0 Tm (3. Problem Statement) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 742.0 Tm (Two related problems are addressed. First, the effect of missing data on downstream prediction is) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 729.0 Tm (often reported inconsistently across the literature because studies vary in dataset, missingness) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 716.0 Tm (mechanism, missingness rate, and imputation method simultaneously, making it difficult to isolate) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 703.0 Tm (which factor drives observed performance changes. Second, feature selection methods such as GA are) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 690.0 Tm (frequently proposed as a way to both reduce dimensionality and improve accuracy, but claims of GA) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 677.0 Tm ("improving" prediction are sometimes drawn from a single train/test split, which cannot distinguish a) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 664.0 Tm (genuine effect from split-specific noise. This project addresses both problems using a single fixed) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 651.0 Tm (dataset, a controlled missingness framework with known ground truth, and a repeated multi-seed design) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 638.0 Tm (with paired statistical testing, so that any claimed effect - of missingness, of imputer choice, or of) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 625.0 Tm (GA - can be checked for replication rather than accepted from a single run.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 612.0 Tm () Tj ET
+BT 0.08 0.25 0.45 rg /F2 16 Tf 1 0 0 1 54.0 600.0 Tm (4. Objectives) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 580.0 Tm (1. Quantify how missingness \(across mechanism and rate\) affects Random Forest prediction performance) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 567.0 Tm (relative to a complete-data baseline. 2. Compare four imputation methods \(mean, median, KNN,) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 554.0 Tm (IterativeImputer\) on both reconstruction accuracy and downstream prediction performance. 3. Determine) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 541.0 Tm (whether GA-based feature selection improves prediction performance, or preserves comparable) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 528.0 Tm (performance with fewer features, both on complete data and after imputation. 4. Situate the project's) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 515.0 Tm (own results against selected published work on imputation and GA-based feature selection in healthcare) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 502.0 Tm (prediction, without presenting different-dataset results as direct head-to-head comparisons.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 489.0 Tm () Tj ET
+BT 0.08 0.25 0.45 rg /F2 16 Tf 1 0 0 1 54.0 477.0 Tm (5. Research Questions) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 62.0 457.0 Tm (- RQ1. How does missing data affect healthcare prediction performance?) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 62.0 444.0 Tm (- RQ2. Which selected imputation method performs best for the chosen dataset?) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 62.0 431.0 Tm (- RQ3. Can GA-based feature selection improve prediction performance, or preserve) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 418.0 Tm (comparable performance using fewer features?) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 405.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 62.0 401.0 Tm (- RQ4. How does Imputation + GA + Random Forest compare with selected baselines and) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 388.0 Tm (existing research?) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 375.0 Tm () Tj ET
+BT 0.08 0.25 0.45 rg /F2 16 Tf 1 0 0 1 54.0 363.0 Tm (6. Literature Review) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 343.0 Tm (Fifteen references were identified and verified against primary or indexed bibliographic sources) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 330.0 Tm (\(results/literature_matrix.csv; full discussion in docs/literature_review.md\). Rubin \(1976\) provides) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 317.0 Tm (the foundational MCAR/MAR/MNAR taxonomy used throughout this project. Van Buuren & Groothuis-Oudshoorn) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 304.0 Tm (\(2011\) and Stekhoven & Buhlmann \(2012\) describe the multivariate iterative imputation family that) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 291.0 Tm (motivates this project's IterativeImputer method, while Troyanskaya et al. \(2001\) established KNN) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 278.0 Tm (imputation in a biological data context. Breiman \(2001\) is the foundational Random Forest reference) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 265.0 Tm (underlying the prediction model used throughout. Leardi, Boggia, & Terrile \(1992\) is a foundational) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 252.0 Tm (reference for GA-based feature selection. Demsar \(2006\) informed this project's use of paired) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 239.0 Tm (statistical tests rather than a single point-estimate comparison across methods.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 226.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 222.0 Tm (Among recent clinical-imputation studies, Shadbahr et al. \(2023\) found, across several independent) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 209.0 Tm (datasets, that the degree of missingness - not the specific mechanism or imputer - was the dominant) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 196.0 Tm (driver of downstream classifier degradation; this project's own RQ1 result \(Section 12\) independently) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 183.0 Tm (arrives at the same qualitative conclusion on a different dataset. Ren et al. \(2024\) systematically) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 170.0 Tm (reviewed machine-learning-based imputation in electronic health records and reported no single imputer) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 157.0 Tm (that consistently dominates across studies, consistent with this project's RQ2 finding. Aracri et al.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 144.0 Tm (\(2025\) compared missing-data imputation methods for a dementia classification task and likewise found) Tj ET
+BT 0.38 0.43 0.49 rg /F1 7.5 Tf 1 0 0 1 487.3 34.0 Tm (Page 2 of 10) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 10 0 R >>
+endobj
+12 0 obj
+<< /Length 7813 >>
+stream
+BT 0.32 0.42 0.55 rg /F2 7.5 Tf 1 0 0 1 54.0 810.0 Tm (HEALTHCARE DATA IMPUTATION | FINAL RESEARCH REPORT) Tj ET
+0.72 0.78 0.84 RG 0.6 w 54 800 m 541.28 800 l S
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 770.0 Tm (no single method statistically dominant. Chicco & Jurman \(2020\), the origin study for this project's) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 757.0 Tm (dataset, identified serum creatinine and ejection fraction as the two most predictive features for) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 744.0 Tm (heart failure survival using an independent feature-importance analysis; this project's GA) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 731.0 Tm (feature-selection result \(Section 15\) selects ejection_fraction in every run and serum_creatinine in 4) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 718.0 Tm (of 5 runs, an independent cross-check that agrees with the origin paper without having used its) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 705.0 Tm (analysis. Kumar & Sahoo \(2017\) reported a favourable GA+Naive-Bayes result for a cardiovascular) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 692.0 Tm (classification task; this project's own GA+Random-Forest result \(Section 16\) diverges from that) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 679.0 Tm (finding, and this divergence is discussed directly rather than omitted \(Section 20\). Pudjihartono et) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 666.0 Tm (al. \(2022\) reviewed feature-selection methods for disease-risk prediction and discusses hybrid) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 653.0 Tm (filter-then-wrapper approaches as a way to reduce a wrapper method's overfitting risk on small) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 640.0 Tm (training sets, which motivates this project's future-work discussion of GA overfitting \(Section 21\).) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 627.0 Tm (Two entries - Kumar & Sahoo \(2017\) and Yaqoob et al. \(2025\) - carry a verification caveat: their full) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 614.0 Tm (text could not be retrieved \(HTTP 403 from the publisher\), so bibliographic details and reported) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 601.0 Tm (findings are drawn from indexed metadata only. Grzesiak et al. \(2025\) is cited as an unreviewed arXiv) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 588.0 Tm (preprint and is labelled as such. Yaqoob et al. \(2025\) itself uses Seagull Optimization, not a genetic) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 575.0 Tm (algorithm, and is cited only for general feature-selection context, not as a GA comparison point.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 562.0 Tm () Tj ET
+BT 0.08 0.25 0.45 rg /F2 16 Tf 1 0 0 1 54.0 550.0 Tm (7. Dataset) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 530.0 Tm (The Heart Failure Clinical Records dataset \(UCI Machine Learning Repository, ID 519, CC BY 4.0) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 517.0 Tm (license\) was selected as the project's single primary dataset after comparison against four other) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 504.0 Tm (candidates - Chronic Kidney Disease, Heart Disease \(Cleveland\), Indian Liver Patient Dataset, and) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 491.0 Tm (Cervical Cancer Risk Factors - scored across twelve criteria including healthcare relevance,) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 478.0 Tm (missing-data suitability, sample size, class balance, and licensing) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 465.0 Tm (\(results/dataset_candidate_comparison.csv, docs/dataset_selection.md\). It contains 299 patient) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 452.0 Tm (records, 12 features, and a binary target, DEATH_EVENT. The dataset is fully observed: zero missing) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 439.0 Tm (values and zero duplicate rows were found on integrity checking, and its SHA-256 checksum and full) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 426.0 Tm (provenance are recorded in data/raw/heart_failure_metadata.json. The class distribution is moderately) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 413.0 Tm (imbalanced: 203 survivors \(0\) and 96 deaths \(1\), approximately 68%/32%.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 400.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 396.0 Tm (This dataset was selected specifically because its complete, natural state allows the complete-data) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 383.0 Tm (Random Forest baseline to use all 299 rows without any natural missing values confounding the) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 370.0 Tm (analysis, and because every cell that is later intentionally masked for the controlled MCAR/MAR/MNAR) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 357.0 Tm (experiments has a known, verifiable ground-truth value - the cleanest possible setup for measuring) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 344.0 Tm (imputation error directly. Against this benefit, the dataset's twelve features are fewer than some) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 331.0 Tm (rejected candidates \(for example, Chronic Kidney Disease's twenty-four\), which makes GA's absolute) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 318.0 Tm (feature-count reduction look smaller in raw terms; this trade-off was judged acceptable given that a) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 305.0 Tm (clean, unconfounded experimental design was prioritised over a larger but less controlled feature) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 292.0 Tm (space.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 279.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 275.0 Tm (One feature, time \(days of follow-up before the recorded outcome\), requires explicit methodological) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 262.0 Tm (comment: in survival-style clinical data, a short follow-up interval correlates with the death event) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 249.0 Tm (almost by construction, since patients who die are, by definition, not followed further. time was) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 236.0 Tm (retained in the dataset, since removing it would itself be an undocumented methodological choice not) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 223.0 Tm (called for by any experimental requirement, but its outsized influence on Random Forest performance is) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 210.0 Tm (treated throughout this report as a modelling caveat rather than a genuine clinical discovery \(see) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 197.0 Tm (Section 20\).) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 184.0 Tm () Tj ET
+BT 0.08 0.25 0.45 rg /F2 16 Tf 1 0 0 1 54.0 172.0 Tm (8. Preprocessing) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 152.0 Tm (Data loading, target detection, and configuration are centralised in src/data_loader.py and) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 139.0 Tm (src/config.py. An 80/20 stratified train/test split is performed once per seed) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 126.0 Tm (\(train_test_split_stratified, src/preprocessing.py\), using scikit-learn's stratified train_test_split) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 113.0 Tm (with the seed passed directly as random_state; this means each of the project's five repeated seeds) Tj ET
+BT 0.38 0.43 0.49 rg /F1 7.5 Tf 1 0 0 1 487.3 34.0 Tm (Page 3 of 10) Tj ET
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 12 0 R >>
+endobj
+14 0 obj
+<< /Length 7178 >>
+stream
+BT 0.32 0.42 0.55 rg /F2 7.5 Tf 1 0 0 1 54.0 810.0 Tm (HEALTHCARE DATA IMPUTATION | FINAL RESEARCH REPORT) Tj ET
+0.72 0.78 0.84 RG 0.6 w 54 800 m 541.28 800 l S
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 770.0 Tm (draws a genuinely fresh train/test partition, not merely a fresh source of model randomness.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 757.0 Tm (Stratified 5-fold cross-validation is used inside the training split wherever a fitness or tuning) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 744.0 Tm (signal is required \(GA fitness evaluation, in particular\). The held-out test split at no point) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 731.0 Tm (participates in imputer fitting, GA fitness evaluation, or any other model-selection decision,) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 718.0 Tm (consistent with a strict train-then-transform discipline \(Section 10\).) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 705.0 Tm () Tj ET
+BT 0.08 0.25 0.45 rg /F2 16 Tf 1 0 0 1 54.0 693.0 Tm (9. Missing-Data Mechanisms) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 673.0 Tm (Three missingness mechanisms were implemented in src/missingness.py:) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 660.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 62.0 656.0 Tm (- MCAR: eligible cells are masked independently at random, with no dependence on any) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 643.0 Tm (observed or unobserved variable.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 630.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 62.0 626.0 Tm (- MAR: the probability of a cell being masked is conditioned on other observed) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 613.0 Tm (variables, with the exact conditioning variables and direction documented per feature in) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 600.0 Tm (docs/experiment_log.md.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 587.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 62.0 583.0 Tm (- MNAR: the probability of a cell being masked is conditioned on the value being) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 570.0 Tm (masked itself \(or a defensible approximation\), again with the exact assumption documented per feature.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 557.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 553.0 Tm (All three mechanisms were applied at three target rates - 10%, 20%, and 30% - and scoped to the seven) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 540.0 Tm (continuous features in the dataset; the five binary clinical flags were excluded from masking, since) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 527.0 Tm (mean/median imputation is not a meaningful reconstruction target for a binary indicator. The target) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 514.0 Tm (column and any identifier columns were never masked. For every intentionally masked cell, the true) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 501.0 Tm (value was preserved before masking so that imputation error could later be measured only against) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 488.0 Tm (genuinely hidden ground-truth values - no cell's imputation error is ever computed against a naturally) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 475.0 Tm (missing value, since this dataset has none. Realised missingness percentages closely matched the) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 462.0 Tm (requested percentages throughout \(results/tables/missingness_summary.csv\); for example, the MCAR) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 449.0 Tm (training-split realised rates were 10.04%, 20.08%, and 30.13% against requested 10/20/30%. A dedicated) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 436.0 Tm (statistical sanity check confirmed that the MAR and MNAR masking probabilities actually correlated) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 423.0 Tm (with their documented conditioning variables as designed \(point-biserial correlation, p < 0.05\).) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 410.0 Tm () Tj ET
+BT 0.08 0.25 0.45 rg /F2 16 Tf 1 0 0 1 54.0 398.0 Tm (10. Methodology) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 378.0 Tm (The experimental pipeline follows a fixed conceptual flow: raw data is loaded and validated, split) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 365.0 Tm (into training and test partitions, missingness is introduced onto each partition independently,) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 352.0 Tm (imputers are fit on the training partition only and then used to transform both partitions, GA feature) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 339.0 Tm (selection \(where used\) operates exclusively on training-partition cross-validation, and the final) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 326.0 Tm (Random Forest model is trained on the \(possibly imputed, possibly feature-selected\) training data and) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 313.0 Tm (evaluated once on the untouched held-out test partition. This split-before-fit discipline was) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 300.0 Tm (re-verified directly in the project's final experiment audit by re-reading the relevant source code) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 287.0 Tm (\(src/preprocessing.py, src/genetic_selection.py\) and confirming that no fitting function accepts or) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 274.0 Tm (references test-split data; a dedicated automated leakage test additionally asserts that GA fitness) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 261.0 Tm (evaluation only ever receives training-split row indices \(tests/test_run_e6.py\). No hyperparameter or) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 248.0 Tm (method-selection decision was ever informed by the held-out test set.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 235.0 Tm () Tj ET
+BT 0.08 0.25 0.45 rg /F2 16 Tf 1 0 0 1 54.0 223.0 Tm (11. Imputation Methods) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 203.0 Tm (Four imputation methods were implemented in src/imputation.py:) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 190.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 62.0 186.0 Tm (- Mean imputation: replaces a missing value with the training-split mean of its) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 173.0 Tm (column.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 160.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 62.0 156.0 Tm (- Median imputation: replaces a missing value with the training-split median of its) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 143.0 Tm (column.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 130.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 62.0 126.0 Tm (- K-nearest neighbours \(KNN\) imputation: imputes a missing value from the average of) Tj ET
+BT 0.38 0.43 0.49 rg /F1 7.5 Tf 1 0 0 1 487.3 34.0 Tm (Page 4 of 10) Tj ET
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 14 0 R >>
+endobj
+16 0 obj
+<< /Length 7318 >>
+stream
+BT 0.32 0.42 0.55 rg /F2 7.5 Tf 1 0 0 1 54.0 810.0 Tm (HEALTHCARE DATA IMPUTATION | FINAL RESEARCH REPORT) Tj ET
+0.72 0.78 0.84 RG 0.6 w 54 800 m 541.28 800 l S
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 770.0 Tm (its k = 5 nearest neighbours \(scikit-learn default\), fit on the training split.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 757.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 62.0 753.0 Tm (- IterativeImputer: scikit-learn's round-robin multivariate imputer, used here as a) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 740.0 Tm (single-imputation, computationally lighter alternative to a full multiple-imputation procedure such as) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 727.0 Tm (MICE or MissForest - a deliberate scope-control choice appropriate to this project's dataset size and) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 714.0 Tm (single-semester timeframe \(docs/literature_review.md\).) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 701.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 697.0 Tm (An optional Autoencoder-based imputer \(permitted by the project's execution plan as an optional) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 684.0 Tm (method\) was not implemented: at 12 features and 299 rows, an autoencoder is not scientifically) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 671.0 Tm (justified relative to the classical and iterative methods already implemented, which are sufficient to) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 658.0 Tm (answer RQ1 and RQ2 on this dataset's scale.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 645.0 Tm () Tj ET
+BT 0.08 0.25 0.45 rg /F2 16 Tf 1 0 0 1 54.0 633.0 Tm (12. GA Feature Selection) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 613.0 Tm (Genetic Algorithm feature selection was implemented in src/genetic_selection.py. Each candidate) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 600.0 Tm (feature subset is represented as a binary chromosome \(1 = feature selected, 0 = feature removed\), with) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 587.0 Tm (the all-zero chromosome disallowed. The GA used tournament selection, single-point crossover, and) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 574.0 Tm (elitism, with the following parameters, matching the project's specified defaults exactly: population) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 561.0 Tm (size 30, 30 generations, crossover probability 0.8, tournament size 3, elite count 2, and mutation) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 548.0 Tm (probability approximately 1/12 \(the reciprocal of the twelve-feature chromosome length\). Fitness was) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 535.0 Tm (defined as the mean 5-fold stratified cross-validation F1 score, computed on the training split only,) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 522.0 Tm (minus a small feature-count penalty of 0.02 multiplied by the selected-feature ratio, discouraging) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 509.0 Tm (unnecessarily large subsets without dominating the accuracy term. Fitness evaluation used 50 trees per) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 496.0 Tm (Random Forest fit rather than the final model's 200, a documented cost-reduction choice justified by) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 483.0 Tm (the observation that CV-F1 ranking between candidate subsets is stable well before 200 trees, and) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 470.0 Tm (because fitness is evaluated up to 900 times in a single GA run; the final all-features-versus-GA) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 457.0 Tm (comparison uses the full 200-tree configuration on both sides, so this shortcut affects only the) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 444.0 Tm (search process and not the reported comparison numbers. The nine-cell imputation-plus-GA sweep \(E6\)) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 431.0 Tm (used a reduced population of 20 and 15 generations for compute-budget reasons; this reduction is) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 418.0 Tm (documented in src/config.py and did not apply to the complete-data GA runs \(E5\).) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 405.0 Tm () Tj ET
+BT 0.08 0.25 0.45 rg /F2 16 Tf 1 0 0 1 54.0 393.0 Tm (13. Random Forest) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 373.0 Tm (Random Forest \(scikit-learn\) was used as the sole downstream prediction model throughout the project,) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 360.0 Tm (per the project's scope-control decision to keep the study to one primary classifier. All final) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 347.0 Tm (reported comparisons use 200 trees. Accuracy, Precision, Recall, F1-score, and ROC-AUC were recorded) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 334.0 Tm (for every run; hyperparameters, seed, and runtime were logged for every result. No hyperparameter was) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 321.0 Tm (ever tuned against the held-out test set.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 308.0 Tm () Tj ET
+BT 0.08 0.25 0.45 rg /F2 16 Tf 1 0 0 1 54.0 296.0 Tm (14. Experimental Setup) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 276.0 Tm (The project's experiment groups \(Section 28 of the governing execution plan\) are summarised below, all) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 263.0 Tm (implemented, executed, and validated:) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 250.0 Tm () Tj ET
+BT 0.18 0.25 0.32 rg /F3 7.2 Tf 1 0 0 1 54.0 246.0 Tm ( |  Group  |  Description  |  Status  | ) Tj ET
+BT 0.18 0.25 0.32 rg /F3 7.2 Tf 1 0 0 1 54.0 233.0 Tm ( |  E0  |  Complete-data Random Forest baseline  |  Done  single seed and 5-seed repeat  | ) Tj ET
+BT 0.18 0.25 0.32 rg /F3 7.2 Tf 1 0 0 1 54.0 220.0 Tm ( |  E1  |  Mean/median imputation  |  Done  MCAR/MAR/MNAR x 10/20/30%, multi-seed  | ) Tj ET
+BT 0.18 0.25 0.32 rg /F3 7.2 Tf 1 0 0 1 54.0 207.0 Tm ( |  E2  |  KNN imputation  |  Done  same coverage as E1  | ) Tj ET
+BT 0.18 0.25 0.32 rg /F3 7.2 Tf 1 0 0 1 54.0 194.0 Tm ( |  E3  |  IterativeImputer \(ML-based\) imputation  |  Done  same coverage as E1  | ) Tj ET
+BT 0.18 0.25 0.32 rg /F3 7.2 Tf 1 0 0 1 54.0 181.0 Tm ( |  E4  |  Autoencoder \(optional\)  |  Not attempted  not scientifically justified at this dataset's scale  | ) Tj ET
+BT 0.18 0.25 0.32 rg /F3 7.2 Tf 1 0 0 1 54.0 168.0 Tm ( |  E5  |  GA feature selection  |  Done  5 seeds on complete data  | ) Tj ET
+BT 0.18 0.25 0.32 rg /F3 7.2 Tf 1 0 0 1 54.0 155.0 Tm ( |  E6  |  Imputation + GA + Random Forest  |  Done  full 9-cell single-seed sweep, plus a 3-cell/3-seed multi-seed replication subset  | ) Tj ET
+BT 0.18 0.25 0.32 rg /F3 7.2 Tf 1 0 0 1 54.0 142.0 Tm ( |  E7  |  Literature comparison  |  Done  contextual only, no cross-dataset head-to-head claims  | ) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 129.0 Tm (The multi-seed missingness matrix covers 3 mechanisms \(MCAR/MAR/MNAR\) x 3 levels \(10/20/30%\) x 4) Tj ET
+BT 0.38 0.43 0.49 rg /F1 7.5 Tf 1 0 0 1 487.3 34.0 Tm (Page 5 of 10) Tj ET
+endstream
+endobj
+17 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 16 0 R >>
+endobj
+18 0 obj
+<< /Length 7807 >>
+stream
+BT 0.32 0.42 0.55 rg /F2 7.5 Tf 1 0 0 1 54.0 810.0 Tm (HEALTHCARE DATA IMPUTATION | FINAL RESEARCH REPORT) Tj ET
+0.72 0.78 0.84 RG 0.6 w 54 800 m 541.28 800 l S
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 770.0 Tm (imputers \(mean/median/KNN/iterative\) x 5 seeds, for 180 total runs) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 757.0 Tm (\(results/metrics/e1_e2_e3_multiseed.csv, aggregated in e1_e2_e3_multiseed_summary.csv\). The GA matrix) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 744.0 Tm (consists of 5 independent complete-data runs \(E5, one per seed\) and a 9-cell single-seed sweep after) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 731.0 Tm (imputation \(E6\), with the three most informative E6 cells \(largest apparent GA gain, largest apparent) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 718.0 Tm (GA loss, and a near-tie at the single seed\) replicated across 3 seeds) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 705.0 Tm (\(results/metrics/e6_multiseed_subset.csv\). Full 9-cell/5-seed E6 coverage was not pursued, for) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 692.0 Tm (compute-budget reasons, since the 3-cell subset already demonstrates a consistent pattern \(Section) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 679.0 Tm (16\); this is documented as an accepted, non-blocking limitation rather than a silent omission. Five) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 666.0 Tm (seeds - 42, 123, 2026, 7, and 99 - were used throughout, matching the project's specified defaults.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 653.0 Tm (Rather than a single master run_all.py script, the project uses one independently re-runnable script) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 640.0 Tm (per experiment group under experiments/, a deliberate scope-control simplification for a) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 627.0 Tm (single-dataset, workstation-scale project, documented rather than silently deviating from the) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 614.0 Tm (suggested execution pattern.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 601.0 Tm () Tj ET
+BT 0.08 0.25 0.45 rg /F2 16 Tf 1 0 0 1 54.0 589.0 Tm (15. Metrics) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 569.0 Tm (Imputation quality was measured on intentionally masked cells only, using Mean Absolute Error \(MAE\)) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 556.0 Tm (and Root Mean Squared Error \(RMSE\) per feature, mechanism, missingness level, and seed. Prediction) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 543.0 Tm (quality was measured using Accuracy, Precision, Recall, F1-score, and ROC-AUC on the held-out test) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 530.0 Tm (split. Given the wide difference in feature scales \(for example, platelets is on the order of 10^4) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 517.0 Tm (while serum_creatinine is on the order of 1\), per-feature MAE/RMSE values are reported individually) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 504.0 Tm (rather than averaged across features, since a single cross-feature average would not be analytically) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 491.0 Tm (meaningful.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 478.0 Tm () Tj ET
+BT 0.08 0.25 0.45 rg /F2 16 Tf 1 0 0 1 54.0 466.0 Tm (16. Results) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 446.0 Tm (Complete-data baseline \(E0\). Across 5 seeds, the complete-data Random Forest baseline achieved) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 433.0 Tm (Accuracy 0.863 +/- 0.040, Precision 0.802 +/- 0.079, Recall 0.768 +/- 0.156, F1 0.776 +/- 0.081, and) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 420.0 Tm (ROC-AUC 0.918 +/- 0.031 \(results/metrics/repeated_seeds_e0.csv\). The single-seed \(seed 42\) held-out) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 407.0 Tm (result was F1 0.667, ROC-AUC 0.883 - the gap between this single-seed number and the 5-seed mean) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 394.0 Tm (illustrates directly why no single-seed result is treated as a final claim anywhere in this project.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 381.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 377.0 Tm (Imputation reconstruction quality. Mean, median, and IterativeImputer performed similarly to one) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 364.0 Tm (another at every missingness level \(results/metrics/e1_mean_median_imputation.csv,) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 351.0 Tm (e3_iterative_imputation.csv\). KNN \(k = 5, untuned\) was consistently the worst reconstructor by) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 338.0 Tm (MAE/RMSE across this dataset's feature scales \(results/metrics/e2_knn_imputation.csv\).) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 325.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 321.0 Tm (Prediction after imputation, multi-seed. Across the full 180-run multi-seed matrix) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 308.0 Tm (\(results/metrics/e1_e2_e3_multiseed_summary.csv\), F1 ranged approximately from 0.615 to 0.742 across) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 295.0 Tm (the nine mechanism-by-level cells, degrading as missingness rose from 10% to 30%, as expected.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 282.0 Tm (Reconstruction quality and downstream prediction quality did not track one another: KNN, the worst) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 269.0 Tm (reconstructor by MAE/RMSE, was sometimes competitive with or better than the other imputers on) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 256.0 Tm (downstream F1 - a disconnect discussed further in Section 20.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 243.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 239.0 Tm (Statistical tests. Twenty-seven paired comparisons were run across the 5-seed matrix \(paired t-test) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 226.0 Tm (with a Wilcoxon signed-rank cross-check; results/tables/statistical_tests.csv, full methodology in) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 213.0 Tm (docs/statistical_analysis.md\): 9 imputer-versus-imputer comparisons, 9 mechanism-versus-mechanism) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 200.0 Tm (comparisons, and 9 complete-data-versus-imputed-data comparisons. Of these, 4 of 9) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 187.0 Tm (complete-versus-imputed comparisons were significant at p < 0.05 \(MCAR 10%, MCAR 20%, MNAR 20%, MNAR) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 174.0 Tm (30%\), while 0 of 9 imputer-versus-imputer and 0 of 9 mechanism-versus-mechanism comparisons reached) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 161.0 Tm (significance. No multiple-comparison correction was applied, a documented choice: at n = 5 seeds, any) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 148.0 Tm (standard correction procedure would push the significance threshold low enough that almost no) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 135.0 Tm (comparison could ever reach it, regardless of true effect size; individual p-values are read as) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 122.0 Tm (exploratory rather than confirmatory.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 109.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 105.0 Tm (GA feature selection \(E5\). Across 5 independent GA runs on complete data, each converging to a) Tj ET
+BT 0.38 0.43 0.49 rg /F1 7.5 Tf 1 0 0 1 487.3 34.0 Tm (Page 6 of 10) Tj ET
+endstream
+endobj
+19 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 18 0 R >>
+endobj
+20 0 obj
+<< /Length 7924 >>
+stream
+BT 0.32 0.42 0.55 rg /F2 7.5 Tf 1 0 0 1 54.0 810.0 Tm (HEALTHCARE DATA IMPUTATION | FINAL RESEARCH REPORT) Tj ET
+0.72 0.78 0.84 RG 0.6 w 54 800 m 541.28 800 l S
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 770.0 Tm (4-to-7-feature subset out of 12, time and ejection_fraction were selected in every run \(frequency) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 757.0 Tm (1.0\), serum_creatinine in 4 of 5 runs \(0.8\), diabetes in 3 of 5 \(0.6\), and age in 0 of 5 runs - a) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 744.0 Tm (genuine negative finding, not an omission \(results/tables/ga_feature_frequency.csv,) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 731.0 Tm (figures/ga_feature_frequency.png, figures/ga_convergence.png\).) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 718.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 714.0 Tm (All-features versus GA-selected \(complete data, seed 42\). Using the majority-vote subset \(features) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 701.0 Tm (selected in at least 50% of runs: time, ejection_fraction, serum_creatinine, diabetes - a 4-of-12,) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 688.0 Tm (66.7% reduction\), Accuracy improved from 0.817 to 0.833 and F1 from 0.667 to 0.706, while ROC-AUC fell) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 675.0 Tm (from 0.883 to 0.815 \(results/metrics/all_features_vs_ga_complete.csv\) - a mixed single-seed result,) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 662.0 Tm (not presented as an unqualified GA win.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 649.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 645.0 Tm (Imputation + GA + Random Forest \(E6\). Across the nine mechanism-by-level cells at seed 42, GA improved) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 632.0 Tm (F1 in 3 of 9 cells, matched it in 1 of 9, and reduced it in 5 of 9) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 619.0 Tm (\(results/metrics/e6_imputed_ga_rf.csv, results/tables/four_way_comparison.csv,) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 606.0 Tm (figures/four_way_comparison.png\). The three most informative cells from this single-seed sweep - the) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 593.0 Tm (largest apparent GA gain \(MCAR 30%\), the largest apparent GA loss \(MNAR 30%\), and a near-tie \(MAR 20%\)) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 580.0 Tm (- were replicated across 3 seeds \(results/metrics/e6_multiseed_subset.csv\). Averaged over those 3) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 567.0 Tm (seeds, GA F1 was at or below all-features F1 in every one of the three cells \(MCAR 30%: 0.632 versus) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 554.0 Tm (0.647; MAR 20%: 0.676 versus 0.724; MNAR 30%: 0.607 versus 0.634\) - the single-seed "GA gain" at MCAR) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 541.0 Tm (30% did not replicate.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 528.0 Tm () Tj ET
+BT 0.08 0.25 0.45 rg /F2 16 Tf 1 0 0 1 54.0 516.0 Tm (17. Statistical Analysis) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 496.0 Tm (The paired statistical testing strategy \(Section 16; full detail in docs/statistical_analysis.md\) used) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 483.0 Tm (a paired t-test as the primary test, with a Wilcoxon signed-rank test run as a non-parametric) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 470.0 Tm (cross-check for each of the 27 comparisons, since the same 5 seeds are paired across the two) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 457.0 Tm (conditions being compared in each case. The result pattern was consistent between the two tests. The) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 444.0 Tm (one family of comparisons with any statistically significant results was complete-data-versus-imputed) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 431.0 Tm (data \(4 of 9 significant\), supporting the conclusion that missingness itself, not the specific) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 418.0 Tm (mechanism or imputer used to address it, is the dominant, measurable driver of performance loss in) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 405.0 Tm (this project's data. Neither the imputer-versus-imputer family nor the mechanism-versus-mechanism) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 392.0 Tm (family produced a single significant result at n = 5 seeds; this is interpreted throughout the report) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 379.0 Tm (as "not distinguishable from noise at this sample size," not as evidence of no real difference, since) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 366.0 Tm (the standard deviation of the complete-data baseline's own F1 across seeds \(0.081\) exceeds most of the) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 353.0 Tm (point-estimate gaps being tested between imputers or mechanisms.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 340.0 Tm () Tj ET
+BT 0.08 0.25 0.45 rg /F2 16 Tf 1 0 0 1 54.0 328.0 Tm (18. Discussion) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 308.0 Tm (The project's central, statistically supported finding is that missingness itself measurably degrades) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 295.0 Tm (prediction performance relative to complete data, independent of which mechanism produced it or which) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 282.0 Tm (method was used to address it. This is the single claim in this project backed by a) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 269.0 Tm (majority-significant test family \(4 of 9\), and it independently corroborates Shadbahr et al. \(2023\)'s) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 256.0 Tm (finding, obtained on different datasets, that missingness rate rather than mechanism or imputer choice) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 243.0 Tm (is the dominant driver of downstream classifier degradation.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 230.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 226.0 Tm (A second notable pattern is the disconnect between reconstruction quality and downstream prediction) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 213.0 Tm (quality: KNN was consistently the worst imputer by MAE/RMSE, yet was sometimes competitive with or) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 200.0 Tm (better than the other imputers on downstream F1. A plausible explanation is that Random Forest, as an) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 187.0 Tm (ensemble of decision trees splitting on threshold values, is comparatively robust to moderate) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 174.0 Tm (feature-level noise in ways that a direct reconstruction-error metric does not capture; MAE/RMSE and) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 161.0 Tm (downstream classification accuracy are simply answering different questions about imputation quality.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 148.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 144.0 Tm (Third, GA's demonstrated contribution on this dataset is feature-set stability, not accuracy) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 131.0 Tm (improvement. The single-seed "GA helps" results observed in the E6 sweep did not survive replication) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 118.0 Tm (across seeds \(Section 16\), but the GA-selected feature subset itself - dominated by time,) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 105.0 Tm (ejection_fraction, and serum_creatinine - was highly stable across five independent runs and, notably,) Tj ET
+BT 0.38 0.43 0.49 rg /F1 7.5 Tf 1 0 0 1 487.3 34.0 Tm (Page 7 of 10) Tj ET
+endstream
+endobj
+21 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 20 0 R >>
+endobj
+22 0 obj
+<< /Length 7710 >>
+stream
+BT 0.32 0.42 0.55 rg /F2 7.5 Tf 1 0 0 1 54.0 810.0 Tm (HEALTHCARE DATA IMPUTATION | FINAL RESEARCH REPORT) Tj ET
+0.72 0.78 0.84 RG 0.6 w 54 800 m 541.28 800 l S
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 770.0 Tm (matches Chicco & Jurman \(2020\)'s independently derived feature-importance ranking for the same) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 757.0 Tm (dataset, a source the GA process had no access to during its search. This is treated in this report as) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 744.0 Tm (a genuine positive finding in its own right, even though it is not the finding that a predetermined,) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 731.0 Tm (in-favour-of-the-proposed-method narrative would have preferred: the project's governing principle) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 718.0 Tm (explicitly prohibits forcing GA to appear to win, and the evidence here supports "GA as a principled) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 705.0 Tm (feature-reduction tool" rather than "GA as an accuracy-improving tool" on this dataset.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 692.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 688.0 Tm (Fourth, the time feature's outsized predictive contribution must be read as a modelling caveat rather) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 675.0 Tm (than a clinical discovery. In survival-style clinical data, a short recorded follow-up interval) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 662.0 Tm (correlates with the death event almost by construction, since a patient who dies is not observed) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 649.0 Tm (further. time's consistent selection by GA and its central role in the dataset's own origin literature) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 636.0 Tm (both need to be understood in this light, not presented as an independently surprising predictive) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 623.0 Tm (insight.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 610.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 606.0 Tm (Fifth, the project's binding constraint is sample size, not method choice. Eighteen of the) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 593.0 Tm (twenty-seven statistical tests conducted were non-significant; given that the complete-data baseline's) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 580.0 Tm (own across-seed standard deviation in F1 \(0.081\) exceeds most of the point-estimate gaps under test,) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 567.0 Tm (the most parsimonious explanation for these non-significant results is that a 299-row dataset and a) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 554.0 Tm (60-row held-out test set, even sampled across 5 seeds, does not carry enough statistical power to) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 541.0 Tm (resolve differences this fine-grained - not that no real difference exists between the compared) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 528.0 Tm (methods.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 515.0 Tm () Tj ET
+BT 0.08 0.25 0.45 rg /F2 16 Tf 1 0 0 1 54.0 503.0 Tm (19. Existing-Work Comparison) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 483.0 Tm (Own results are compared against selected published literature contextually, without presenting) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 470.0 Tm (numbers computed on different datasets as a direct head-to-head result. This project's RQ1 finding -) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 457.0 Tm (that missingness rate matters more than mechanism - agrees with Shadbahr et al. \(2023\). Its RQ2) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 444.0 Tm (finding - that no single imputer statistically dominates - agrees with both Ren et al. \(2024\)'s) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 431.0 Tm (systematic review of EHR imputation methods and Aracri et al. \(2025\)'s comparison for dementia) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 418.0 Tm (classification. Its RQ3 finding on feature-selection stability agrees, independently, with Chicco &) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 405.0 Tm (Jurman \(2020\)'s feature-importance analysis for the same underlying dataset. Its RQ3 finding on) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 392.0 Tm (accuracy does not agree with Kumar & Sahoo \(2017\), who reported a favourable GA-plus-Naive- Bayes) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 379.0 Tm (result on a different cardiovascular dataset; a plausible, though unproven, explanation offered here) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 366.0 Tm (is that this project's small feature space \(12 features\) and training set \(239 rows\) give a genetic) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 353.0 Tm (wrapper search comparatively little room to find a genuinely superior subset, and comparatively more) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 340.0 Tm (room to overfit its own cross-validation-based fitness signal - a known general risk of wrapper-based) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 327.0 Tm (feature selection on small, noisy datasets \(Pudjihartono et al., 2022\). This divergence is reported) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 314.0 Tm (directly, not omitted, consistent with the project's governing principle that evidence should not be) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 301.0 Tm (forced toward a predetermined conclusion.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 288.0 Tm () Tj ET
+BT 0.08 0.25 0.45 rg /F2 16 Tf 1 0 0 1 54.0 276.0 Tm (20. Limitations) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 62.0 256.0 Tm (- The study uses a single primary dataset of 299 rows \(239 train / 60 test\), small by) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 243.0 Tm (general machine-learning standards; this is an intentional scope-control decision restricting the main) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 230.0 Tm (study to one primary dataset within a single-semester timeframe.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 217.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 62.0 213.0 Tm (- Five seeds is a statistically thin repeated-measures design: 18 of 27 paired tests are) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 200.0 Tm (non-significant, which should be read as "not distinguishable from noise at this sample size," not as) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 187.0 Tm ("no real effect exists.") Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 174.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 62.0 170.0 Tm (- No multiple-comparison correction was applied to the 27 statistical tests; at n = 5,) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 157.0 Tm (any standard correction would make almost every comparison non-significant regardless of true effect) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 144.0 Tm (size, so individual p-values are read as exploratory/suggestive rather than confirmatory.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 131.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 62.0 127.0 Tm (- Each seed reseeds the entire pipeline, including the train/test split itself, not only) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 114.0 Tm (model training - a more thorough but higher-variance multi-seed design than reseeding the model alone;) Tj ET
+BT 0.38 0.43 0.49 rg /F1 7.5 Tf 1 0 0 1 487.3 34.0 Tm (Page 8 of 10) Tj ET
+endstream
+endobj
+23 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 22 0 R >>
+endobj
+24 0 obj
+<< /Length 7877 >>
+stream
+BT 0.32 0.42 0.55 rg /F2 7.5 Tf 1 0 0 1 54.0 810.0 Tm (HEALTHCARE DATA IMPUTATION | FINAL RESEARCH REPORT) Tj ET
+0.72 0.78 0.84 RG 0.6 w 54 800 m 541.28 800 l S
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 770.0 Tm (this should be kept in mind when comparing this project's variance estimates to studies that reseed) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 757.0 Tm (only the model.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 744.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 62.0 740.0 Tm (- E6 \(Imputation + GA + Random Forest\) multi-seed coverage is a 3-cell/3-seed subset,) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 727.0 Tm (not the full 9-cell/5-seed grid, for compute-budget reasons; sufficient to show that the single-seed) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 714.0 Tm (GA pattern does not replicate, but not an exhaustive test of every cell.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 701.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 62.0 697.0 Tm (- GA fitness evaluation used 50 trees against the final model's 200-tree configuration,) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 684.0 Tm (a documented roughly five-times cost reduction for the search process only; final reported comparisons) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 671.0 Tm (use 200 trees on both sides, so reported performance numbers are unaffected, though the GA search) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 658.0 Tm (itself operated on a noisier fitness signal than the final evaluation.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 645.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 62.0 641.0 Tm (- KNN's k = 5 and IterativeImputer's settings are scikit-learn defaults, not) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 628.0 Tm (cross-validation-tuned; neither choice is unreasonable, but neither is optimized.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 615.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 62.0 611.0 Tm (- Missingness and imputation are scoped to the seven continuous features; the five) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 598.0 Tm (binary clinical flags are not masked, since mean/median imputation is not a meaningful reconstruction) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 585.0 Tm (target for a binary indicator.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 572.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 62.0 568.0 Tm (- The time column's leakage-adjacency, discussed in Section 18 \(Discussion\) and) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 555.0 Tm (Section 7 \(Dataset\), is retained as a documented methodological decision rather than removed, and its) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 542.0 Tm (outsized influence on Random Forest performance should not be read as a genuine predictive discovery.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 529.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 62.0 525.0 Tm (- Two literature entries - Kumar & Sahoo \(2017\) and Yaqoob et al. \(2025\) - carry a) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 512.0 Tm (verification caveat: their full text could not be retrieved due to publisher access restrictions, so) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 499.0 Tm (bibliographic details and reported findings are drawn from indexed metadata rather than a direct) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 486.0 Tm (primary-source read. One entry, Grzesiak et al. \(2025\), is an unreviewed arXiv preprint and is) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 473.0 Tm (labelled accordingly.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 460.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 62.0 456.0 Tm (- No single master run_all.py execution script exists; the project instead uses one) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 443.0 Tm (independently re-runnable script per experiment group, a documented scope-control simplification.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 430.0 Tm () Tj ET
+BT 0.08 0.25 0.45 rg /F2 16 Tf 1 0 0 1 54.0 418.0 Tm (21. Future Work) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 62.0 398.0 Tm (- Additional seeds beyond the current five, to resolve the several near-threshold) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 385.0 Tm (p-values observed in the statistical tests and give RQ1 and RQ2 more statistical power.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 372.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 62.0 368.0 Tm (- Full 9-cell/5-seed E6 coverage, extending the current 3-cell/3-seed replication) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 355.0 Tm (subset, to confirm across every mechanism-by-level cell \(not only the three sampled\) that GA does not) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 342.0 Tm (reliably improve accuracy once imputation is already in the pipeline.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 329.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 62.0 325.0 Tm (- A second dataset for external validation, most plausibly Chronic Kidney Disease) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 312.0 Tm (\(ranked second among the candidates in docs/dataset_selection.md\), whose genuine natural missingness) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 299.0 Tm (would let RQ1 be tested against real rather than only synthetic missingness.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 286.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 62.0 282.0 Tm (- Cross-validation-tuned KNN k and IterativeImputer settings, rather than) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 269.0 Tm (scikit-learn defaults, to check whether the disconnect between reconstruction quality and downstream) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 256.0 Tm (prediction quality \(Section 20\) persists under tuning.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 243.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 62.0 239.0 Tm (- A hybrid filter-then-wrapper feature-selection approach \(Pudjihartono et al.,) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 226.0 Tm (2022\), to test whether GA's plausible overfitting risk on a small cross-validation signal \(offered) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 213.0 Tm (here as the explanation for the project's mixed RQ3 result\) is reduced by pre-filtering the candidate) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 200.0 Tm (feature space before the genetic search begins.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 187.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 62.0 183.0 Tm (- An explicit sensitivity analysis on the time feature, rerunning the project's) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 170.0 Tm (headline comparisons with time excluded, to directly quantify how much of the reported Random Forest) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 157.0 Tm (performance depends on this leakage-adjacent feature.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 144.0 Tm () Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 62.0 140.0 Tm (- An optional Autoencoder-based imputer, only if a future, substantially larger) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 127.0 Tm (dataset or a specific reviewer request justifies the added complexity; not pursued here, since the) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 114.0 Tm (classical and iterative imputers already implemented are sufficient to answer RQ1 and RQ2 at this) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 101.0 Tm (dataset's scale.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 88.0 Tm () Tj ET
+BT 0.38 0.43 0.49 rg /F1 7.5 Tf 1 0 0 1 487.3 34.0 Tm (Page 9 of 10) Tj ET
+endstream
+endobj
+25 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 24 0 R >>
+endobj
+26 0 obj
+<< /Length 3970 >>
+stream
+BT 0.32 0.42 0.55 rg /F2 7.5 Tf 1 0 0 1 54.0 810.0 Tm (HEALTHCARE DATA IMPUTATION | FINAL RESEARCH REPORT) Tj ET
+0.72 0.78 0.84 RG 0.6 w 54 800 m 541.28 800 l S
+BT 0.08 0.25 0.45 rg /F2 16 Tf 1 0 0 1 54.0 762.0 Tm (22. Conclusion) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 742.0 Tm (This project set out to determine how missing data affects clinical prediction, which imputation) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 729.0 Tm (method performs best, and whether GA-based feature selection improves Random Forest prediction, using) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 716.0 Tm (a controlled, repeated-seed experimental design on the Heart Failure Clinical Records dataset. The) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 703.0 Tm (evidence supports one clear, statistically defensible conclusion: missingness itself, independent of) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 690.0 Tm (its mechanism or the method used to address it, measurably reduces prediction performance. No) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 677.0 Tm (imputation method and no missingness mechanism could be statistically distinguished from its) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 664.0 Tm (alternatives at this dataset's sample size, so no ranking among mean, median, KNN, and) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 651.0 Tm (IterativeImputer, nor among MCAR, MAR, and MNAR, is claimed. GA-based feature selection reliably and) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 638.0 Tm (reproducibly identified a small, clinically plausible feature subset that independently matches this) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 625.0 Tm (dataset's own origin literature, but did not reliably improve prediction accuracy once tested across) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 612.0 Tm (multiple seeds rather than a single split - a genuine, non-forced finding that GA's demonstrated value) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 599.0 Tm (here is principled dimensionality reduction rather than an accuracy gain. Consistent with the) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 586.0 Tm (project's governing principle of not forcing a predetermined conclusion, these results - including the) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 573.0 Tm (non-significant comparisons and GA's mixed accuracy result - are reported as the actual, replicated) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 560.0 Tm (evidence produced by this study, and are offered as a defensible, honestly limited research result) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 547.0 Tm (rather than a claim of a superior proposed method.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 534.0 Tm () Tj ET
+BT 0.08 0.25 0.45 rg /F2 16 Tf 1 0 0 1 54.0 522.0 Tm (References) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 502.0 Tm (Full bibliographic detail with DOIs is provided in report_data/references.bib and) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 489.0 Tm (results/literature_matrix.csv; the fifteen references cited above are, in the order first cited: Rubin) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 476.0 Tm (\(1976\); van Buuren & Groothuis-Oudshoorn \(2011\); Stekhoven & Buhlmann \(2012\); Troyanskaya et al.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 463.0 Tm (\(2001\); Breiman \(2001\); Leardi, Boggia, & Terrile \(1992\); Demsar \(2006\); Shadbahr et al. \(2023\); Ren) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 450.0 Tm (et al. \(2024\); Aracri et al. \(2025\); Chicco & Jurman \(2020\); Kumar & Sahoo \(2017\); Pudjihartono et al.) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 437.0 Tm (\(2022\); Yaqoob et al. \(2025\); Grzesiak et al. \(2025\).) Tj ET
+BT 0.12 0.16 0.22 rg /F1 9.3 Tf 1 0 0 1 54.0 424.0 Tm () Tj ET
+BT 0.38 0.43 0.49 rg /F1 7.5 Tf 1 0 0 1 487.3 34.0 Tm (Page 10 of 10) Tj ET
+endstream
+endobj
+27 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 26 0 R >>
+endobj
+xref
+0 28
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000191 00000 n 
+0000000261 00000 n 
+0000000336 00000 n 
+0000000404 00000 n 
+0000002027 00000 n 
+0000002179 00000 n 
+0000009497 00000 n 
+0000009649 00000 n 
+0000016638 00000 n 
+0000016792 00000 n 
+0000024658 00000 n 
+0000024812 00000 n 
+0000032043 00000 n 
+0000032197 00000 n 
+0000039552 00000 n 
+0000039706 00000 n 
+0000047566 00000 n 
+0000047720 00000 n 
+0000055697 00000 n 
+0000055851 00000 n 
+0000063614 00000 n 
+0000063768 00000 n 
+0000071698 00000 n 
+0000071852 00000 n 
+0000075875 00000 n 
+trailer
+<< /Size 28 /Root 1 0 R >>
+startxref
+76029
+%%EOF

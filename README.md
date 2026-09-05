@@ -19,6 +19,7 @@ selection improves downstream Random Forest prediction.
 
 Project complete through the final experiment audit, report package, and
 academic report draft. See `docs/final_report.md`,
+the professor-facing PDF at `docs/Healthcare_Data_Imputation_Final_Report.pdf`,
 `docs/supervisor_progress_summary.md`, and
 `docs/reproducibility_audit.md`.
 
